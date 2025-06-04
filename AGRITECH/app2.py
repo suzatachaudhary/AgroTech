@@ -19,7 +19,7 @@ app.secret_key = 'your_secret_key'
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'  # MySQL username
 app.config['MYSQL_PASSWORD'] = '######'  # MySQL password
-app.config['MYSQL_DB'] = 'maidapp'  # MySQL database name
+app.config['MYSQL_DB'] = 'Agrotech'  # MySQL database name
 mysql = MySQL(app)
 
 # Flask-Mail configuration for Gmail
