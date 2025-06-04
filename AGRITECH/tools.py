@@ -21,8 +21,8 @@ app.config.from_object(Config)
 # Initialize MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'  # MySQL username
-app.config['MYSQL_PASSWORD'] = '######'  # MySQL password
-app.config['MYSQL_DB'] = 'Agrotech'  # MySQL database name
+app.config['MYSQL_PASSWORD'] = 'Dummy_Password'  # MySQL password
+app.config['MYSQL_DB'] = 'Dummy_Database'  # MySQL database name
 mysql = MySQL(app)
 razorpay_client = razorpay.Client(auth=(Config.RAZORPAY_KEY_ID, Config.RAZORPAY_KEY_SECRET))
 
@@ -31,9 +31,9 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465  # Use 587 for TLS
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USE_TLS'] = False  # Set to True if using port 587
-app.config['MAIL_USERNAME'] = 'abc@gmail.com'  # Your Gmail address
+app.config['MAIL_USERNAME'] = 'Dummy.com'  # Your Gmail address
 app.config['MAIL_PASSWORD'] = '#######'  # Or App Pass
-app.config['MAIL_DEFAULT_SENDER'] = 'abcd@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'DummyGmail.com'
 
 mail = Mail(app)
 
