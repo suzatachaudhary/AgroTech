@@ -18,8 +18,8 @@ app.secret_key = 'your_secret_key'
 # Initialize MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'  # MySQL username
-app.config['MYSQL_PASSWORD'] = '######'  # MySQL password
-app.config['MYSQL_DB'] = 'Agrotech'  # MySQL database name
+app.config['MYSQL_PASSWORD'] = 'Dummy_password'  # MySQL password
+app.config['MYSQL_DB'] = 'Dummy Databse'  # MySQL database name
 mysql = MySQL(app)
 
 # Flask-Mail configuration for Gmail
@@ -27,9 +27,11 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465  # Use 587 for TLS
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USE_TLS'] = False  # Set to True if using port 587
-app.config['MAIL_USERNAME'] = 'abc@gmai.com'  # Your Gmail address
-app.config['MAIL_PASSWORD'] = '######'  # Or App Pass
-app.config['MAIL_DEFAULT_SENDER'] = 'abcd@gmail.com'
+app.config['MAIL_USERNAME'] = 'DummyGmail.com'  # Your Gmail address
+app.config['MAIL_PASSWORD'] = '#####'  # Or App Pass
+app.config['MAIL_DEFAULT_SENDER'] = 'DummyGmail.com'
+
+
 
 mail = Mail(app)
 
