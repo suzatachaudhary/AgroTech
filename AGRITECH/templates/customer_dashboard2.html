@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Customers Dashboard</title>
+
+    <style>
+        /* Custom CSS */
+        body {
+            background: url("{{ url_for('static', filename='images/bg.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: flex-start;
+            align-items: stretch;
+            font-family: 'Arial', sans-serif;
+            overflow-y: auto; /* Add vertical scrollbar if content exceeds the viewport */
+        }
+
+        .profile-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-sidebar h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .profile-sidebar p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .profile-sidebar .btn-danger {
+            margin-top: 20px;
+        }
+
+        .main-content {
+            margin-left: 270px; /* Space for the sidebar */
+            width: calc(100% - 270px);
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .mtagline {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(to right, rgba(227, 216, 223, 0.4), rgba(183, 179, 176, 0.7)); /* 60% transparency */
+            border-radius: 10px;
+        }
+
+        .search-container {
+            margin-bottom: 40px;
+        }
+
+        #search-location {
+            width: 30%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        /* Scrollbar customizations (for smooth scrolling) */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Profile Sidebar -->
+    <div class="profile-sidebar">
+        <h3>Profile</h3>
+        <img src="static\images\maid.jpg" alt="img">
+        <p><strong>Name:</strong> {{ session['user_name'] }}</p>
+        <p><strong>Phone:</strong> {{ session['phone_no'] }}</p>
+        <p><strong>Email:</strong> {{ session['email'] }}</p>
+        <p><strong>Address:</strong> {{ session['address'] }}</p>
+        <p><strong>DOB:</strong> {{ session['dob'] }}</p>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container mtagline">
+            <h2>Customers Dashboard</h2>
+            <h1>Welcome, {{ session['user_name'] }}</h1>
+            <h3>Available Labours</h3>
+
+            <!-- Search Bar for Location -->
+            <div class="search-container">
+                <input type="text" id="search-location" class="form-control" placeholder="Search by Location..." />
+            </div>
+
+            <table class="table table-striped" id="maids-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Skills</th>
+                        <th>Food</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+            
+                    <!-- 
+                    <tr>
+                        <td>Priyanka Sharma</td>
+                        <td class="location">Mumbai</td>
+                        <td>Cleaning, Cooking, Child Care</td>
+                        <td>Veg</td>
+                        <td>
+                            <button type="button" class="btn btn-primary book-btn" data-maid-id="1" data-maid-name="Priyanka Sharma">Book</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Anita Desai</td>
+                        <td class="location">Bangalore</td>
+                        <td>Cleaning, Elder Care</td>
+                        <td>Veg</td>
+                        <td>
+                            <button type="button" class="btn btn-primary book-btn" data-maid-id="2" data-maid-name="Anita Desai">Book</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Rani</td>
+                        <td class="location">Delhi</td>
+                        <td>Cooking, Cleaning</td>
+                        <td>Both</td>
+                        <td>
+                            <button type="button" class="btn btn-primary book-btn" data-maid-id="3" data-maid-name="Rani">Book</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Geeta Kumari</td>
+                        <td class="location">Kolkata</td>
+                        <td>Child Care, Cooking</td>
+                        <td>Non-Veg</td>
+                        <td>
+                            <button type="button" class="btn btn-primary book-btn" data-maid-id="4" data-maid-name="Geeta Kumari">Book</button>
+                        </td>
+                    </tr>
+
+
+<tr>
+    <td>Aarti Patel</td>
+    <td class="location">Vadodara</td>
+    <td>Cleaning, Cooking</td>
+    <td>Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="6" data-maid-name="Aarti Patel">Book</button></td>
+</tr>
+<tr>
+    <td>Bharti Shah</td>
+    <td class="location">Vadodara</td>
+    <td>Child Care, Elder Care</td>
+    <td>Non-Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="7" data-maid-name="Bharti Shah">Book</button></td>
+</tr>
+<tr>
+    <td>Vandana Raval</td>
+    <td class="location">Vadodara</td>
+    <td>Cooking, Cleaning</td>
+    <td>Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="8" data-maid-name="Vandana Raval">Book</button></td>
+</tr>
+<tr>
+    <td>Seema Desai</td>
+    <td class="location">Vadodara</td>
+    <td>Cooking, Child Care</td>
+    <td>Both</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="9" data-maid-name="Seema Desai">Book</button></td>
+</tr>
+<tr>
+    <td>Priyanka Mehta</td>
+    <td class="location">Vadodara</td>
+    <td>Cleaning, Cooking</td>
+    <td>Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="10" data-maid-name="Priyanka Mehta">Book</button></td>
+</tr>
+<tr>
+    <td>Rupal Patel</td>
+    <td class="location">Vadodara</td>
+    <td>Child Care, Elder Care</td>
+    <td>Non-Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="11" data-maid-name="Rupal Patel">Book</button></td>
+</tr>
+<tr>
+    <td>Nisha Shah</td>
+    <td class="location">Vadodara</td>
+    <td>Cooking, Elder Care</td>
+    <td>Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="12" data-maid-name="Nisha Shah">Book</button></td>
+</tr>
+<tr>
+    <td>Meenal Desai</td>
+    <td class="location">Vadodara</td>
+    <td>Cleaning, Child Care</td>
+    <td>Both</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="13" data-maid-name="Meenal Desai">Book</button></td>
+</tr>
+<tr>
+    <td>Geetaben Raval</td>
+    <td class="location">Vadodara</td>
+    <td>Child Care, Cooking</td>
+    <td>Non-Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="14" data-maid-name="Geetaben Raval">Book</button></td>
+</tr>
+<tr>
+    <td>Simran Kaur</td>
+    <td class="location">Amritsar</td>
+    <td>Cleaning, Cooking</td>
+    <td>Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="15" data-maid-name="Simran Kaur">Book</button></td>
+</tr>
+<tr>
+    <td>Ranjita Kumari</td>
+    <td class="location">Patna</td>
+    <td>Child Care, Elder Care</td>
+    <td>Non-Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="16" data-maid-name="Ranjita Kumari">Book</button></td>
+</tr>
+<tr>
+    <td>Shilpa Pandey</td>
+    <td class="location">Lucknow</td>
+    <td>Cooking, Cleaning</td>
+    <td>Veg</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="17" data-maid-name="Shilpa Pandey">Book</button></td>
+</tr>
+<tr>
+    <td>Radha Kumari</td>
+    <td class="location">Bhopal</td>
+    <td>Cleaning, Cooking</td>
+    <td>Both</td>
+    <td><button type="button" class="btn btn-primary book-btn" data-maid-id="18" data-maid-name="Radha Kumari">Book</button></td>
+</tr>
+
+                    
+                    <tr>
+                        <td>Neeta Verma</td>
+                        <td class="location">Chennai</td>
+                        <td>Cleaning, Elder Care, Cooking</td>
+                        <td>Veg</td>
+                        <td>
+                            <button type="button" class="btn btn-primary book-btn" data-maid-id="5" data-maid-name="Neeta Verma">Book</button>
+                        </td>
+                    </tr>
+                -->
+        
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Booking Form Modal (Hidden initially) -->
+    <div class="modal" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Booking Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="bookingForm" action="/submit-booking" method="POST">
+                        <input type="hidden" name="maid_id" id="maid_id">
+                        <input type="hidden" name="maid_name" id="maid_name">
+
+                        <div class="form-group">
+                            <label for="customer_name">Your Name</label>
+                            <input type="text" id="customer_name" name="customer_name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Submit Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript for dynamically filling the form based on the maid clicked
+        $(document).ready(function() {
+            $('.book-btn').click(function() {
+                var maidId = $(this).data('maid-id');
+                var maidName = $(this).data('maid-name');
+
+                // Fill the hidden fields with maid data
+                $('#maid_id').val(maidId);
+                $('#maid_name').val(maidName);
+
+                // Show the booking form modal
+                $('#bookingModal').modal('show');
+            });
+
+            // Search filter for Location
+            $('#search-location').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('#maids-table tbody tr').filter(function() {
+                    $(this).toggle($(this).find('.location').text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

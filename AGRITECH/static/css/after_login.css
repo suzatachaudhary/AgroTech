@@ -1,0 +1,710 @@
+/* Background Image from static folder */
+body {
+    background-image: url("/static/images/bg.jpg");
+    background-size: cover;
+    background-position: center center;
+    color: #0c31d6;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    transition: background-image 1.5s ease-in-out, opacity 1.5s ease-in-out;
+    margin-top: 0;
+    margin: 0;
+    background-attachment: fixed;
+    opacity: 1;
+}
+
+/* Ensure the background wrapper fills the entire screen */
+.background-wrapper {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 1; /* Start with full opacity */
+    z-index: -1; /* Make sure it stays behind content */
+}
+
+header {
+    background: transparent;
+    padding: 80px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3.5em;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+header nav a {
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+header nav a:hover {
+    transform: scale(1.1);
+    background-color: #007bff;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 30px;
+    transition: all 0.3s;
+    margin: 50px;
+}
+
+.btn:hover {
+    background-color: #007bff;
+    transform: translateY(-5px);
+}
+
+section {
+    background: transparent;
+    padding: 50px 20px;
+    border-radius: 10px;
+    margin-top: -100px;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 2.8em;
+    margin-bottom: 20px;
+}
+
+.service-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.service-card {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 12px;
+    width: 22%;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.service-card h3 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.service-card p {
+    font-size: 1.1em;
+    color: #555;
+}
+
+.contact-form {
+    background: rgba(255, 255, 255, 0.85);
+    padding: 40px;
+    border-radius: 10px;
+    margin-top: 60px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form input,
+.contact-form textarea {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #ebd5d5;
+    font-size: 1em;
+    transition: border 0.3s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.contact-form button {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #0056b3;
+}
+
+
+/* Footer Styles */
+footer {
+    background-color:#0c0b0b;
+    
+    color: #e8c7c7;
+    padding: 20px 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer h3 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+footer .contact ul,
+footer .links ul,
+footer .social-media ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1em;
+}
+
+footer .contact li,
+footer .links li,
+footer .social-media li {
+    margin-bottom: 8px;
+}
+
+footer .contact a,
+footer .links a,
+footer .social-media a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+footer .contact a:hover,
+footer .links a:hover,
+footer .social-media a:hover {
+    color: #fff;
+}
+
+footer .contact i,
+footer .links i,
+footer .social-media i {
+    margin-right: 10px;
+}
+
+footer .text-center {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+/* Responsive Design for Footer */
+@media (max-width: 768px) {
+    footer .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    footer .footer-content>div {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    footer .contact ul,
+    footer .links ul,
+    footer .social-media ul {
+        text-align: center;
+    }
+
+    footer .contact li,
+    footer .links li,
+    footer .social-media li {
+        margin-bottom: 12px;
+    }
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative; 
+    top: 0;
+    left:0;
+    right:0;
+    height: 150px;
+    border-radius: 10px;
+    z-index: 1000;
+    background-color: #90bbda; 
+    color: white; /
+}
+
+.nav-item:hover {
+    background: rgb(248, 249, 251);
+    border-radius: 10px;
+    text-decoration: underline; 
+    color: black;
+}
+/* CSS for the login button */
+.login-btn {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    /* Blue background */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+
+.trusted-maid-service {
+    font-size: 70px;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+
+
+/* CSS for the tagline */
+.tagline {
+    font-size: 22px;
+    font-weight: bold;
+    color:#0d78b1;
+    padding: 10px;
+    text-align: left;
+}
+
+.mtagline {
+    font-size: 28px;
+    font-weight: bold;
+    background: linear-gradient(to right, rgb(255, 95, 207), #feb47b);
+    border-radius: 20px
+}
+
+/* CSS for the Featured Services section */
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card {
+    margin: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+}
+
+.card-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    font-size: 16px;
+    color: #555;
+    text-align: left;
+}
+
+.btn-outline-dark {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none;
+    color: #000;
+    border: 2px solid #000;
+    background-color: #fff;
+}
+
+.btn-outline-dark:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+
+/* CSS for the Why Choose Us section */
+#why-choose-us {
+    padding: 100px 0;
+    background-color: #f8f9fa;
+}
+
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.heading h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+.reasons {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.reason {
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.reason img {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.reason h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.reason p {
+    font-size: 16px;
+    color: #555;
+}
+
+
+
+/* CSS Highlights */
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    background: transparent;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(46, 44, 44, 0.4);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.carousel-heading {
+    font-size: 30px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.carousel {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: scroll 40s linear infinite;
+}
+
+.carousel img {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.carousel img:hover {
+    transform: scale(1.1);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+/* Gradient Overlay */
+body::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background: rgba(0, 0, 0, 0.4); /* Dark transparent overlay */
+z-index: -1;
+}
+/* Container for centering */
+
+
+@keyframes darken {
+    from {
+        background: #0a0a0a;
+    }
+    to {
+        background: #000000;
+    }
+}
+
+
+.farmera-logo {
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+    background-image: url('/static/images/farmera-logo.png');
+    background-size: cover;
+    cursor: pointer;
+    position: left;
+    border-radius: 100px;
+    border-radius: 50px;
+    border-color: #05d313;
+    border-style: groove;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0.7;
+}
+.farmera-logo:hover {
+    border-color: rgb(246, 238, 100);
+    opacity: 1;
+    transition: background-color 0.3s ease;
+
+    }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #1a0e0e, #000000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease-in-out;
+}
+
+.farmera-text {
+    font-size: 120px;
+    font-weight: bold;
+    display: flex;
+    gap: 12px;
+    position: relative;
+    text-align: center;
+    opacity: 0;
+}
+
+.farmera-text span {
+    opacity: 0;
+    font-weight: bold;
+    text-shadow: 0px 0px 20px rgba(255, 0, 0, 0.8);
+    animation: hauntedFade 1s ease-in-out forwards;
+    position: relative;
+}
+
+@keyframes hauntedFade {
+    from {
+        opacity: 0;
+        transform: translateX(-100px) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+    }
+}
+
+.fullscreen-image {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 10vw;
+    height: 10vh;
+    background-image: url('/static/images/farmera-impact.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.1);
+    transition: transform 3s ease-in, opacity 1s ease-in-out;
+}
+
+/* for video */
+.blink {
+    animation: blink-animation 1s steps(5, start) infinite;
+}
+
+@keyframes blink-animation {
+    to {
+        visibility: hidden;
+    }
+}
+
+/* css for map section */
+/* Centering the text & adding styles */
+.map-embed {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+/* Stylish animated heading */
+.map-heading {
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff6b6b, #ffcc00, #1dd1a1, #54a0ff);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    position: relative;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Underline animation */
+.map-heading::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b6b, #ffcc00, #1dd1a1, #54a0ff);
+    margin: auto;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Hover effect */
+.map-heading:hover::after {
+    width: 100%;
+}
+
+/* Glow effect on hover */
+.map-heading:hover {
+    text-shadow: 0px 0px 10px rgba(255, 107, 107, 0.8),
+                 0px 0px 20px rgba(255, 204, 0, 0.8),
+                 0px 0px 30px rgba(29, 209, 161, 0.8),
+                 0px 0px 40px rgba(84, 160, 255, 0.8);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: .5;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+
+.map-container {
+    width: 100vw; 
+    height: 350px; 
+    position: relative;
+    overflow: hidden;
+}
+
+/* Google Maps Frame */
+.map-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Moving Border Effect */
+.border-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 10px solid transparent;
+    box-sizing: border-box;
+    animation: movingBorder 3s linear infinite;
+}
+
+/* Keyframes for moving border effect */
+@keyframes movingBorder {
+    0% {
+        border-top: 5px solid rgb(99, 3, 159);
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid transparent;
+    }
+    25% {
+        border-top: 5px solid transparent;
+        border-right: 5px solid rgba(135, 135, 6, 0.642);
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid transparent;
+    }
+    50% {
+        border-top: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid rgb(6, 104, 6);
+        border-left: 5px solid transparent;
+    }
+    75% {
+        border-top: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid rgb(21, 21, 159);
+    }
+    100% {
+        border-top: 5px solid rgb(148, 49, 49);
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid transparent;
+    }
+}
+

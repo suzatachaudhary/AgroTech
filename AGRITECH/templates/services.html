@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Executive Maids</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/styles.css" rel="stylesheet" />
+    <link href="static/css/chatbot.css" rel="stylesheet" />
+
+    <style>
+        /* Custom CSS */
+        body {
+            background: url("{{ url_for('static', filename='images/bg.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow-y: scroll;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 30px;
+        }
+
+        .card {
+            max-width: 18rem;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.1); /* Enlarge image on hover */
+            cursor: pointer;
+        }
+
+        .card-body {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 28px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Gradient overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h3 {
+                font-size: 24px;
+            }
+        }
+
+        /* Modal styles */
+        .modal-dialog {
+            max-width: 80%;
+        }
+
+        .modal-body img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mb-5">Our Featured Services</h1>
+        <h3 class="text-center mb-5">Hire Professionals,<br /> Experienced Specifically for Your Needs</h3>
+
+        <div class="row d-flex justify-content-around">
+            <!-- Service 1 - labour booking -->
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="./static/images/m1.jpeg" class="card-img-top" alt="House Cleaning" data-toggle="modal" data-target="#imageModal" onclick="openModal(this)">
+                    <div class="card-body">
+                        <h5 class="card-title">LABOURS</h5>
+                        <p class="card-text">Need extra hands on your farm? Let us help! Our hardworking team
+                            offers reliable labor for planting, harvesting, irrigation, and more.
+                             Enjoy the peace of mind knowing your farm is in good hands. Book with us today</p>
+                        <button class="btn btn-primary">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 2 - tools booking -->
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="./static/images/m2.jpeg" class="card-img-top" alt="Child Care" data-toggle="modal" data-target="#imageModal" onclick="openModal(this)">
+                    <div class="card-body">
+                        <h5 class="card-title">TOOLS</h5>
+                        <p class="card-text">Looking for reliable tools to boost your farm’s productivity?
+                            We’ve got you covered! Our top-quality rental tools are perfect for planting,
+                             harvesting, irrigation, and more. Rest easy knowing you have the best equipment at your 
+                             fingertips. Reserve your tools today!</p>
+                        <button class="btn btn-primary">Book Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 3 - Cook -->
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="./static/images/m3.jpeg" class="card-img-top" alt="Cook" data-toggle="modal" data-target="#imageModal" onclick="openModal(this)">
+                    <div class="card-body">
+                        <h5 class="card-title">SUGGETIONS</h5>
+                        <p class="card-text"> Starting a specific type of farming?
+                            You’ll need quality land, water, the right tools, and crop management knowledge.
+                             Access to labor and markets is essential for success. 
+                             Get the right foundation to grow your farm today!</p>
+                        <button class="btn btn-primary">Get Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 4 - Elder Care -->
+            <div class="col-md-3">
+                <div class="card">
+                    <img src="./static/images/m4.jpeg" class="card-img-top" alt="Elder Care" data-toggle="modal" data-target="#imageModal" onclick="openModal(this)">
+                    <div class="card-body">
+                        <h5 class="card-title">Buy & sell products</h5>
+                        <p class="card-text"> Looking for high-quality products to enhance your farm’s efficiency?
+                            We’ve got you covered! Our premium selection of farming products is perfect for planting,
+                             harvesting, irrigation, and more. Enjoy top-notch quality and durability with every purchase. 
+                             Get the best tools and supplies for your farm today!</p>
+                        <button class="btn btn-primary">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="./static/images/m3.jpeg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">CROP RECOMMENDATIONS</h5>
+                    <p class="card-text">Not sure what to plant? We’
+                        ve got you covered! Our smart recommendations help you choose the best crops based on soil,
+                         climate, and market demand. Grow smarter, harvest better! 🌱🚜</p>
+                         <button class="btn btn-primary" onclick="redirectToRegister()">Get Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for large image view -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Service Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="modal-image" src="" class="img-fluid" alt="Service Image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to update modal image -->
+    <script>
+        function openModal(image) {
+            var modalImage = document.getElementById('modal-image');
+            modalImage.src = image.src; // Set the clicked image's src to the modal image
+        }
+    </script>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbot-button">💬</button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="chatbot-window" style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 10px;">
+        <div id="chatbot-header" style="font-size: 18px; font-weight: bold; padding: 10px; background-color: #007bff; color: white; border-radius: 8px 8px 0 0;">
+            Maid Service Chatbot
+        </div>
+        <div id="chatbot-messages" style="overflow-y: auto; max-height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            <!-- Messages will be displayed here -->
+        </div>
+        <input id="chatbot-input" type="text" placeholder="Ask me anything..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        <button id="send-message" class="btn btn-primary" style="width: 100%; border-radius: 8px; margin-top: 5px;">Send</button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="static/js/script.js"></script>
+    <script src="static/js/chatbot.js"></script>
+</body>
+
+</html>

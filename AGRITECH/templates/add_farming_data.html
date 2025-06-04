@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Farming Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 50%;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .flash-message {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Add Farming Data</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="flash-message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('add_farming_data') }}">
+            <label for="farming_name">Farming Name:</label>
+            <input type="text" id="farming_name" name="farming_name" required>
+
+            <label for="labor_needs">Labor Needs:</label>
+            <textarea id="labor_needs" name="labor_needs" rows="2" required></textarea>
+
+            <label for="tools_requirements">Tools Requirements:</label>
+            <textarea id="tools_requirements" name="tools_requirements" rows="2" required></textarea>
+
+            <label for="pesticide_requirements">Pesticide Requirements:</label>
+            <textarea id="pesticide_requirements" name="pesticide_requirements" rows="2" required></textarea>
+
+            <label for="risk_factors">Risk Factors:</label>
+            <textarea id="risk_factors" name="risk_factors" rows="2" required></textarea>
+
+            <label for="market_value">Market Value:</label>
+            <input type="number" id="market_value" name="market_value" step="0.01" required>
+
+            <label for="growth_trend">Growth Trend:</label>
+            <input type="text" id="growth_trend" name="growth_trend" required>
+
+            <button type="submit" class="btn">Add Farming Data</button>
+        </form>
+    </div>
+
+</body>
+</html>

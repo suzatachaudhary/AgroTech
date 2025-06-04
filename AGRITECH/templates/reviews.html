@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Review</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="static/css/styles.css" rel="stylesheet" />
+    <link href="static/css/chatbot.css" rel="stylesheet" />
+    <style>
+        /* Custom Styles */
+        body {
+            background: url("{{ url_for('static', filename='images/bg.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+
+        .review-card {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 25px;
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            animation: fadeIn 1s ease-out;
+            border: 2px solid #ddd; /* Default border */
+        }
+
+        /* Highlight border after submission */
+        .review-card.submitted {
+            border: 3px solid #28a745; /* Green border after submission */
+            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.2); /* Green shadow */
+        }
+
+        /* Hover effect */
+        .review-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Keyframe animation for fade-in effect */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            margin: 0 5px;
+        }
+
+        /* Color the stars red (checked) */
+        .star-rating input:checked ~ label,
+        .star-rating input:hover ~ label {
+            color: #ff4500;
+        }
+
+        /* Hover effect to show the stars in red */
+        .star-rating input:hover ~ label {
+            color: #ff4500;
+        }
+
+        .comment-box {
+            width: 100%;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-box:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .submit-btn {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+        }
+
+        .review-message {
+            display: none;
+            color: green;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        /* Success message styling */
+        .alert {
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="review-card text-center {% if messages %} submitted {% endif %}">
+        <form method="POST">
+            <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Profile Picture" class="profile-pic">
+            <h3>Customer Review</h3>
+
+            <!-- Name -->
+            <input type="text" class="form-control" name="name" placeholder="Your Name" required><br>
+
+            <!-- Star Rating -->
+            <div class="star-rating">
+                <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+                <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+            </div>
+
+            <!-- Review Comment -->
+            <textarea class="comment-box" rows="4" name="comment" placeholder="Write your comment here..."></textarea><br>
+
+            <button type="submit" class="submit-btn">Submit Review</button>
+        </form>
+        
+        <br>
+        <button type="button" class="submit-btn" onclick="window.location.href='index.html';">Home</button>
+
+        <!-- Flash message for review submission -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert alert-success" role="alert">
+                {% for category, message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <script src="static/js/script.js"></script>
+    <script src="static/js/chatbot.js"></script>
+</body>
+</html>

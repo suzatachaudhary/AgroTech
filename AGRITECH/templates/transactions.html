@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Transaction History</h2>
+    <div id="transactionsList"></div>
+
+    <script>
+        function fetchTransactions() {
+            fetch("/get_transactions")
+                .then(response => response.json())
+                .then(data => {
+                    let transactionsDiv = document.getElementById("transactionsList");
+                    transactionsDiv.innerHTML = "";
+                    data.transactions.forEach(transaction => {
+                        transactionsDiv.innerHTML += `
+                            <div class="transaction">
+                                <p>Tool: ${transaction.tool_name}</p>
+                                <p>Amount: ₹${transaction.amount}</p>
+                                <p>Status: ${transaction.status}</p>
+                            </div>
+                        `;
+                    });
+                });
+        }
+
+        fetchTransactions();
+    </script>
+</body>
+</html>

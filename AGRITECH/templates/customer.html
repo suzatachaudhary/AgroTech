@@ -1,0 +1,169 @@
+<!--customer.html-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/styles.css" rel="stylesheet"/>
+    <link href="static/css/chatbot.css" rel="stylesheet"/>
+    <title>Register Customer</title>
+    
+    <style>
+        /* Custom CSS */
+        body {
+            background: url("{{ url_for('static', filename='images/bg.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .card {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 12px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            max-height: 85vh; /* Set max height for the card */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #ff7e5f; /* Change heading color */
+            margin-bottom: 30px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #ff7e5f; /* Change focus border color */
+            box-shadow: 0 0 5px rgba(255, 126, 95, 0.5);
+        }
+
+        .btn-primary {
+            background-color: #ff7e5f; /* Change button color */
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #feb47b; /* Change button hover color */
+            transform: translateY(-2px);
+        }
+
+        .mb-3 {
+            margin-bottom: 20px;
+        }
+
+        /* Add gradient overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Dark transparent overlay */
+            z-index: -1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4">Register Customer</h2>
+            
+    <!-- Display Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="alert alert-success" role="alert">
+            {{ messages[0][1] }}
+        </div>
+    {% endif %}
+{% endwith %}
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_no">Phone Number</label>
+                    <input type="text" class="form-control" id="phone_no" name="phone_no" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" class="form-control" id="location" name="location" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button> <br> <br>
+                <a href="{{ url_for('home') }}" class="btn btn-primary">Home</a>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbot-button">💬</button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="chatbot-window"
+        style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 10px;">
+        <div id="chatbot-header"
+            style="font-size: 18px; font-weight: bold; padding: 10px; background-color: #007bff; color: white; border-radius: 8px 8px 0 0;">
+            Maid Service Chatbot
+        </div>
+        <div id="chatbot-messages"
+            style="overflow-y: auto; max-height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            <!-- Messages will be displayed here -->
+        </div>
+        <input id="chatbot-input" type="text" placeholder="Ask me anything..."
+            style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        <button id="send-message" class="btn btn-primary"
+            style="width: 100%; border-radius: 8px; margin-top: 5px;">Send</button>
+    </div>
+
+    <script src="static/js/script.js"></script>
+    <script src="static/js/chatbot.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

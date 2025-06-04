@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Available Tools</h2>
+    <div id="toolsList"></div>
+
+    <script>
+        function fetchTools() {
+            fetch("/get_tools")
+                .then(response => response.json())
+                .then(data => {
+                    let toolsDiv = document.getElementById("toolsList");
+                    toolsDiv.innerHTML = "";
+                    data.tools.forEach(tool => {
+                        toolsDiv.innerHTML += `
+                            <div class="tool">
+                                <h3>${tool.name}</h3>
+                                <p>Hourly Rate: ₹${tool.hourly_rate}</p>
+                                <p>Location: ${tool.location}</p>
+                                <button onclick="bookTool(${tool.id})">Book Now</button>
+                            </div>
+                        `;
+                    });
+                });
+        }
+
+        function bookTool(toolId) {
+            let farmerId = "{{ session['user_id'] }}";  
+            if (!farmerId) {
+                alert("You must be logged in to book a tool.");
+                return;
+            }
+
+            let startTime = prompt("Enter start time (YYYY-MM-DD HH:MM:SS):");
+            let endTime = prompt("Enter end time (YYYY-MM-DD HH:MM:SS):");
+
+            if (!startTime || !endTime) {
+                alert("Start time and end time are required.");
+                return;
+            }
+
+            fetch("/book_tool", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    farmer_id: farmerId,
+                    tool_id: toolId,
+                    start_time: startTime,
+                    end_time: endTime
+                })
+            }).then(response => response.json()).then(data => {
+                alert(data.message);
+            });
+        }
+
+        fetchTools();
+    </script>
+</body>
+</html>

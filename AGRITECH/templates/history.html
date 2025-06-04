@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User History</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <style>
+    .history-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+    
+    .history-container h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .history-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    .history-item {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 15px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .history-item p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+    
+    .back-button {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #007BFF;
+        font-weight: bold;
+    }
+    
+    .back-button:hover {
+        text-decoration: underline;
+    }
+    /* Background Image */
+    .background {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url('{{ url_for('static', filename='images/background.png') }}') no-repeat center center/cover;
+        z-index: -1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.3;
+    }
+    
+    /* Watermark */
+    .watermark {
+        position: absolute;
+        font-size: 240px;
+         /* Increase the font size for a bigger watermark */
+        font-weight: bold;
+        color:  #4a463b; /* Light gold watermark color */
+        text-transform: none;
+        letter-spacing: 50px; /* Increase spacing between letters for more impact */
+        text-align: center;
+        margin-top: 10px;
+        transform: rotate(0 deg); /* Optional: rotate for a diagonal effect */
+        user-select: none;
+        
+        text-align: center; /* Adjust for centering and rotation */
+        opacity: 0.3; /* Make it subtle and transparent */
+        z-index: -1; /* Ensure it's behind other content */
+    }
+    
+   </style>
+</head>
+<body>
+    <div class="background">
+        <div class="watermark">AgriTECH</div>
+    </div>
+    <div class="history-container">
+        <h1>User Activity History</h1>
+        {% if history %}
+            <ul class="history-list">
+                {% for activity in history %}
+                    <li class="history-item">
+                        <p><strong>Soil Type:</strong> {{ activity['soil_type'] }}</p>
+                        <p><strong>Temperature:</strong> {{ activity['temperature'] }}°C</p>
+                        <p><strong>Rainfall:</strong> {{ activity['rainfall'] }} mm</p>
+                        <p><strong>pH Level:</strong> {{ activity['pH'] }}</p>
+                        <p><strong>Recommended Crops:</strong> {{ activity['recommendations'] | join(', ') }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No history found for your account.</p>
+        {% endif %}
+        <a href="{{ url_for('dashboard') }}" class="back-button">Back to Dashboard</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Executive Maids</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/styles.css" rel="stylesheet"/>
+    <link href="static/css/chatbot.css" rel="stylesheet"/>
+
+    <!-- Custom CSS for the Privacy Policy page -->
+    <style>
+        /* Custom CSS */
+        body {
+    background: url("{{ url_for('static', filename='images/bg.jpg') }}") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.card {
+    max-width: 800px;
+    width: 100%;
+    border-radius: 15px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    max-height: 90vh; /* Ensure content stays within viewport */
+    overflow-y: auto; /* Enable scrolling if content exceeds */
+}
+
+.card:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+    background-color: rgba(206, 232, 243, 0.8)
+}
+
+h2, h3 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    color: #555;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 16px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Gradient overlay */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: -1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        padding: 20px;
+    }
+    h2, h3 {
+        font-size: 24px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card p-4 shadow-lg"> 
+            <h2 class="text-center mb-4">Privacy Policy</h2>
+
+            <h3>1. Information We Collect</h3>
+            <p>We collect the following types of information to provide you with the best experience:</p>
+            <ul>
+                <li><strong>Personal Information:</strong> When you register or contact us, we may collect personal information such as your name, email address, phone number, and address.</li>
+                <li><strong>Usage Data:</strong> We collect information on how you interact with our website, such as IP address, browser type, pages visited, and device information.</li>
+                <li><strong>Cookies and Tracking Technologies:</strong> We use cookies to improve user experience and analyze website traffic. Cookies are small text files that are stored on your device.</li>
+            </ul>
+
+            <h3>2. How We Use Your Information</h3>
+            <p>The information we collect is used for the following purposes:</p>
+            <ul>
+                <li>To provide, maintain, and improve our services.</li>
+                <li>To communicate with you, including sending you updates, promotions, and customer support.</li>
+                <li>To personalize your experience on our website.</li>
+                <li>To monitor and analyze website usage to improve our content and services.</li>
+                <li>To comply with legal obligations and resolve disputes.</li>
+            </ul>
+
+            <h3>3. How We Protect Your Information</h3>
+            <p>We take the security of your personal information seriously. We use administrative, technical, and physical safeguards to protect your data from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet or electronic storage is 100% secure, so we cannot guarantee absolute security.</p>
+
+            <h3>4. Sharing Your Information</h3>
+            <p>We do not sell or share your personal information with third parties except in the following circumstances:</p>
+            <ul>
+                <li><strong>Service Providers:</strong> We may share your information with third-party service providers who assist us in operating our website and services (e.g., payment processors, email providers, etc.). These providers are only allowed to use your information for the purposes specified by us and are obligated to keep it confidential.</li>
+                <li><strong>Legal Compliance:</strong> We may disclose your information if required by law or to protect our rights, property, or safety, or the rights, property, or safety of others.</li>
+            </ul>
+
+            <h3>5. Your Data Rights</h3>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access, update, or delete your personal information.</li>
+                <li>Opt-out of receiving promotional communications from us.</li>
+                <li>Request that we restrict the processing of your personal data in certain circumstances.</li>
+            </ul>
+            <p>If you wish to exercise any of these rights, please contact us at <a href="mailto:contact@maidservice.com">contact@maidservice.com</a>.</p>
+
+            <h3>6. Children's Privacy</h3>
+            <p>Our services are not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe that we have collected personal information from a child, please contact us immediately, and we will take steps to remove such information.</p>
+
+            <h3>7. Changes to This Privacy Policy</h3>
+            <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. We encourage you to review this policy periodically to stay informed about how we are protecting your information.</p>
+
+            <h3>8. Contact Us</h3>
+            <p>If you have any questions or concerns about this Privacy Policy or how we handle your data, please contact us at:</p>
+            <ul>
+                <li>Email: <a href="mailto:contact@maidservice.com">contact@maidservice.com</a></li>
+                <li>Phone: +123 456 7890</li>
+                <li>Address: Bhagalpur, Bihar</li>
+            </ul>
+
+            <button class="btn btn-primary mt-4" onclick="window.location.href='/'">Back to Home</button>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbot-button">💬</button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="chatbot-window"
+        style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 10px;">
+        <div id="chatbot-header"
+            style="font-size: 18px; font-weight: bold; padding: 10px; background-color: #007bff; color: white; border-radius: 8px 8px 0 0;">
+            Maid Service Chatbot
+        </div>
+        <div id="chatbot-messages"
+            style="overflow-y: auto; max-height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            <!-- Messages will be displayed here -->
+        </div>
+        <input id="chatbot-input" type="text" placeholder="Ask me anything..."
+            style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        <button id="send-message" class="btn btn-primary"
+            style="width: 100%; border-radius: 8px; margin-top: 5px;">Send</button>
+    </div>
+
+    <!-- JavaScript files -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="static/js/script.js"></script>
+    <script src="static/js/chatbot.js"></script>
+
+</body>
+</html>

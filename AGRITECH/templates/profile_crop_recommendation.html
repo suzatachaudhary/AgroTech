@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+   <style>
+    /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+/* Background and Watermark */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #4CAF50, #2E7D32);
+    z-index: -1;
+    opacity: 0.9;
+}
+
+.watermark {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 100px;
+    color: rgba(255, 255, 255, 0.1);
+    font-weight: bold;
+}
+
+/* Container */
+.container {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 90%;
+}
+
+/* Welcome Text */
+.welcome-text {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #2E7D32;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Buttons */
+.profile-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.profile-button:hover {
+    background: #2c652f;
+}
+
+.back-link {
+    color: #2E7D32;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+   </style>
+</head>
+<body>
+    <div class="background">
+        <div class="watermark">AgriTECH</div>
+    </div>
+    <div class="container">
+        <h2 class="welcome-text">Welcome, {{ session['user_name'] }}!</h2>
+        
+        <!-- Main Buttons -->
+        <div class="button-container">
+            <button class="profile-button" onclick="history()">View History</button>
+            <a class="back-link" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script>
+        // Functions for button actions
+        function history() {
+            window.location.href = "/history";
+        }
+    </script>
+</body>
+</html>

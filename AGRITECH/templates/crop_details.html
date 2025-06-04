@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ crop_name }} Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    /* General Styles */
+body {
+    font-family: 'Roboto', Arial, sans-serif; /* Modern font */
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(to bottom, #f9f9f9, #e3e3e3); /* Subtle gradient background */
+    color: #333;
+}
+
+h1, h2 {
+    margin-bottom: 20px;
+    color: #9d463a; /* Earthy green for titles */
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Image Container - Flexbox for Horizontal Layout */
+.image-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px; /* Increased gap between images */
+    margin-bottom: 30px;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Wrap images for smaller screens */
+}
+
+/* Styling for each image box */
+.image-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 300px;
+    justify-content: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8); /* Transparent white background */
+    border: 2px solid #4CAF50; /* Border for better separation */
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
+}
+
+.image-box:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+    margin-bottom: 10px;
+    border-radius: 10px; /* Rounded corners for images */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+}
+
+/* Styling for the paragraph text below each image */
+.image-box p {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+    color: #555;
+}
+
+/* Additional Images */
+.additional-images {
+    display: block;
+    margin: 20px auto;
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Shadow for emphasis */
+}
+
+/* Text Formatting */
+p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 10px 0;
+    color: #383838;
+}
+
+strong {
+    font-weight: bold;
+    color: #1a1716;
+}
+
+/* Background Section */
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('{{ url_for('static', filename='images/background.png') }}') no-repeat center center/cover;
+    z-index: -1;
+    opacity: 0.5;
+    animation: fadeIn 3s ease-in-out; /* Fading effect on page load */
+}
+
+/* Watermark */
+.watermark {
+    position: absolute;
+    font-size: 200px; /* Larger and bold font for impact */
+    font-weight: bold;
+    color: rgba(74, 70, 59, 0.2); /* Light gold watermark */
+    letter-spacing: 20px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    opacity: 0.2; /* Subtle transparency */
+    z-index: -1;
+    pointer-events: none; /* Prevent interaction */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+
+/* Button Styling */
+button, a {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+    background: linear-gradient(to right, #4CAF50, #2E7D32);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+button:hover, a:hover {
+    background: linear-gradient(to right, #2E7D32, #4CAF50);
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .image-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .image-box {
+        max-width: 100%;
+    }
+}
+
+</style>
+</head>
+<body>
+    <div class="background">
+        <div class="watermark">AgriTECH</div>
+    </div>
+    <h1>{{ crop_name }} Details</h1>
+    <div class="crop-details">
+        <h2>{{ crop_name }}</h2>
+        <div class="dashboard">
+        <!-- Images Section -->
+        <div class="image-container">
+            <!-- Crop Photo and Nutritional Value Images Horizontally -->
+            <div class="image-box">
+                {% if crop_data.images.crop_photo %}
+                <img class="crop-photo" src="{{ url_for('static', filename=crop_data.images.crop_photo) }}" alt="{{ crop_name }} Photo">
+                {% else %}
+                <p>No crop photo available.</p>
+                {% endif %}
+                <p><strong>Best Growing Practices:</strong></p>
+                <p>{{ crop_data.best_growing_practices }}</p>
+            </div>
+            
+            <div class="image-box">
+                {% if crop_data.images.nutritional_value %}
+                <img class="nutritional-photo" src="{{ url_for('static', filename=crop_data.images.nutritional_value) }}" alt="{{ crop_name }} Nutritional Value">
+                {% else %}
+                <p>No nutritional value image available.</p>
+                {% endif %}
+                <p><strong>Nutritional Value Explanation:</strong></p>
+                <p>{{ crop_data.nutritional_value }}</p>
+            </div>
+        </div>
+        
+        <!-- Additional Optional Images -->
+        {% if crop_data.images.demand_area %}
+        <img class="additional-images" src="{{ url_for('static', filename=crop_data.images.demand_area) }}" alt="{{ crop_name }} Demand Area">
+        {% endif %}
+        {% if crop_data.images.market_price_trends %}
+        <img class="additional-images" src="{{ url_for('static', filename=crop_data.images.market_price_trends) }}" alt="{{ crop_name }} Market Price Trends">
+        {% endif %}
+        
+        <!-- Crop Details -->
+        <p><strong>Expected Yield:</strong> {{ crop_data.expected_yield }}</p>
+        <p><strong>Market Demand:</strong> {{ crop_data.market_demand }}</p>
+    </div>
+ <div>
+    <a href="{{ url_for('dashboard') }}" class="back-button">Back to Dashboard</a>
+ </div>
+</div>
+</body>
+</html>

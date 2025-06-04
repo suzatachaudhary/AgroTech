@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Popup with Registration Form</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+
+    /* Custom CSS */
+        body {
+            background: url("{{ url_for('static', filename='images/bg.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow-y: auto; /* Add vertical scrollbar if content exceeds the viewport */
+        }
+
+        .container {
+            padding: 20px;
+            overflow: auto;
+            max-height: 90vh; /* Limit height for scroll */
+        }
+
+        .card {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 12px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        /* used the below mtagline for background like services section , done by mitanshu, changed color*/
+        .mtagline {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(to right, rgba(227, 216, 223, 0.4), rgba(183, 179, 176, 0.7)); /* 60% transparency */
+            border-radius: 10px;
+        }
+
+        .search-container {
+            margin-bottom: 40px;
+        }
+
+        #search-location {
+            width: 30%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        /* Scrollbar customizations (for smooth scrolling) */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    /* General Styles */
+
+    /* Profile Button Styles */
+    #profileButton {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 15px 30px;
+      background: linear-gradient(145deg, #6e7bff, #5560ea);
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+    
+    /* Hover Effect */
+    #profileButton:hover {
+      background: linear-gradient(145deg, #5560ea, #6e7bff);  /* Reverse the gradient on hover */
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);  /* Increase shadow on hover */
+      transform: scale(1.05);  /* Slightly enlarge the button on hover */
+    }
+    
+    /* Focus Effect */
+    #profileButton:focus {
+      outline: none;  /* Remove the default outline */
+      box-shadow: 0 0 8px rgba(110, 123, 255, 0.5);  /* Subtle glow effect when focused */
+    }
+    
+
+    /* Popup Styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* Dark background */
+      z-index: 9999;
+      overflow: auto;
+    }
+
+    .popup-content {
+      position: relative;
+      background: linear-gradient(145deg, #ffffff, #f9f9f9);
+      margin: 10% auto;
+      padding: 30px;
+      width: 70%;
+      max-width: 800px;
+      border-radius: 15px;
+      box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Close Button Styles */
+    #closePopup {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 30px;
+      font-weight: bold;
+      color: #333;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    #closePopup:hover {
+      color: #f44336;
+    }
+
+    /* Fade In Animation */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* Form Elements */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      font-size: 14px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #6e7bff;
+      box-shadow: 0 0 5px rgba(110, 123, 255, 0.4);
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a.btn-secondary {
+      background-color: #6c757d;
+      color: white;
+      border-radius: 8px;
+      padding: 12px 25px;
+      display: inline-block;
+      margin-top: 20px;
+      text-align: center;
+      transition: background-color 0.3s ease;
+    }
+
+    a.btn-secondary:hover {
+      background-color: #5a6268;
+    }
+
+    /* Styling for the container */
+    .container {
+      padding: 10px 30px;
+    }
+
+    /* Optional: Adding some padding around the form */
+    form {
+      padding: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Profile Button 
+<button id="profileButton" class="btn btn-primary">View Profile 🙎🏻‍♂️</button>-->
+
+<div class="container mtagline">
+  <h2>Farmer's Dashboard</h2>
+  <a href="javascript:history.back()" class="back-button"> Go Back</a>
+  <!--<a href="/logout" class="btn btn-danger">Logout</a> -->
+  <div class="container mt-5">
+      <h1>Welcome, {{ session['user_name'] }}</h1>
+      
+      <h3>Available Labours</h3>
+
+      <!-- Search Bar for Location -->
+      <div class="search-container">
+          <input type="text" id="search-location" class="form-control" placeholder="Search by Location..." />
+      </div>
+
+      <table class="table table-striped" id="maids-table">
+          <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Location</th>
+                  <th>Skills</th>
+                  <th>Food</th>
+                  <th>Gender</th>
+                  <th>Action</th>
+              </tr>
+          </thead>
+          <tbody>
+
+            {% for maid in maids %}
+            <tr>
+                <td>{{ maid[0] }}</td>  <!-- id -->
+                <td>{{ maid[1] }}</td>  <!-- Maid Name -->
+                <td>{{ maid[4] }}</td>  <!-- Location -->
+                <td>{{ maid[3] }}</td>  <!-- Skills -->
+ 
+                <td>{{ maid[2] }}</td>  <!-- Food Preference -->
+                <td>{{ maid[5] }}</td>  
+               <td> <button type="button" class="btn btn-primary book-btn" data-maid-id="{{ maid[0] }}" data-maid-name="{{ maid[1] }}">Book</button> </td>
+                    
+            </tr>
+        {% endfor %}
+        
+
+        <tr>
+            <td> 100</td>
+            <td>Priyanka Sharma</td>
+            <td class="location">Mumbai</td>
+            <td>Cleaning, Cooking, Child Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="100" data-maid-name="Priyanka Sharma">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 101</td>
+            <td>Anita Desai</td>
+            <td class="location">Bangalore</td>
+            <td>Cleaning, Elder Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="101" data-maid-name="Anita Desai">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 102</td>
+            <td>Rani</td>
+            <td class="location">Delhi</td>
+            <td>Cooking, Cleaning</td>
+            <td>Both</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="102" data-maid-name="Rani">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 103</td>
+            <td>Geeta Kumari</td>
+            <td class="location">Kolkata</td>
+            <td>Child Care, Cooking</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="103" data-maid-name="Geeta Kumari">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 104</td>
+            <td>Neeta Verma</td>
+            <td class="location">Chennai</td>
+            <td>Cleaning, Elder Care, Cooking</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="104" data-maid-name="Neeta Verma">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 105</td>
+            <td>Sunita Yadav</td>
+            <td class="location">Delhi</td>
+            <td>Cleaning, Cooking</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="105" data-maid-name="Sunita Yadav">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 106</td>
+            <td>Radha Rani</td>
+            <td class="location">Bangalore</td>
+            <td>Cleaning, Elder Care</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="106" data-maid-name="Radha Rani">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 107</td>
+            <td>Aarti Patel</td>
+            <td class="location">Mumbai</td>
+            <td>Cooking, Child Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="107" data-maid-name="Aarti Patel">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 108</td>
+            <td>Meena Kumari</td>
+            <td class="location">Kolkata</td>
+            <td>Cleaning, Child Care</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="108" data-maid-name="Meena Kumari">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 109</td>
+            <td>Preeti Singh</td>
+            <td class="location">Chennai</td>
+            <td>Cooking, Elder Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="109" data-maid-name="Preeti Singh">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 110</td>
+            <td>Shalini Gupta</td>
+            <td class="location">Delhi</td>
+            <td>Cleaning, Cooking</td>
+            <td>Both</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="110" data-maid-name="Shalini Gupta">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 111</td>
+            <td>Manju Verma</td>
+            <td class="location">Bangalore</td>
+            <td>Cleaning, Child Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="111" data-maid-name="Manju Verma">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 112</td>
+            <td>Vidya Raj</td>
+            <td class="location">Mumbai</td>
+            <td>Cleaning, Cooking</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="112" data-maid-name="Vidya Raj">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 113</td>
+            <td>Anjali Thakur</td>
+            <td class="location">Chennai</td>
+            <td>Cleaning, Elder Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="113" data-maid-name="Anjali Thakur">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 114</td>
+            <td>Suman Rani</td>
+            <td class="location">Delhi</td>
+            <td>Cooking, Child Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="114" data-maid-name="Suman Rani">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 115</td>
+            <td>Shilpa Joshi</td>
+            <td class="location">Mumbai</td>
+            <td>Cleaning, Elder Care</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="115" data-maid-name="Shilpa Joshi">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td>116</td>
+            <td>Komal Sharma</td>
+            <td class="location">Kolkata</td>
+            <td>Child Care, Cleaning</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="116" data-maid-name="Komal Sharma">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 117</td>
+            <td>Pooja Patil</td>
+            <td class="location">Bangalore</td>
+            <td>Cooking, Cleaning</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="117" data-maid-name="Pooja Patil">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 118</td>
+            <td>Rekha Devi</td>
+            <td class="location">Delhi</td>
+            <td>Cleaning, Elder Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="118" data-maid-name="Rekha Devi">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 119</td>
+            <td>Jyoti Agarwal</td>
+            <td class="location">Chennai</td>
+            <td>Cooking, Child Care</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="119" data-maid-name="Jyoti Agarwal">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 120</td>
+            <td>Rita Kumari</td>
+            <td class="location">Bangalore</td>
+            <td>Cleaning, Elder Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="120" data-maid-name="Rita Kumari">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 121</td>
+            <td>Kavita Singh</td>
+            <td class="location">Mumbai</td>
+            <td>Child Care, Cooking</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="121" data-maid-name="Kavita Singh">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 122</td>
+            <td>Shalini Rani</td>
+            <td class="location">Delhi</td>
+            <td>Cleaning, Cooking</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="122" data-maid-name="Shalini Rani">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 123</td>
+            <td>Anju Verma</td>
+            <td class="location">Chennai</td>
+            <td>Cleaning, Elder Care</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="123" data-maid-name="Anju Verma">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 124</td>
+            <td>Sarita Devi</td>
+            <td class="location">Kolkata</td>
+            <td>Cooking, Child Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="124" data-maid-name="Sarita Devi">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 125</td>
+            <td>Alka Rani</td>
+            <td class="location">Bangalore</td>
+            <td>Child Care, Cleaning</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="125" data-maid-name="Alka Rani">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 126</td>
+            <td>Jaya Kumari</td>
+            <td class="location">Delhi</td>
+            <td>Cleaning, Elder Care</td>
+            <td>Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="126" data-maid-name="Jaya Kumari">Book</button>
+            </td>
+        </tr>
+        <tr>
+            <td> 127</td>
+            <td>Saroj Yadav</td>
+            <td class="location">Mumbai</td>
+            <td>Cooking, Elder Care</td>
+            <td>Non-Veg</td>
+            <td>Female</td>
+            <td>
+                <button type="button" class="btn btn-primary book-btn" data-maid-id="127" data-maid-name="Saroj Yadav">Book</button>
+            </td>
+        </tr>
+        
+              
+              
+          </tbody>
+          
+      </table>
+  </div>
+</div>
+
+<!-- Booking Form Modal (Hidden initially) -->
+<div class="modal" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Booking Form</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <form id="bookingForm" action="/submit-booking" method="POST">
+                  <input type="hidden" name="maid_id" id="maid_id">
+                  <input type="hidden" name="maid_name" id="maid_name">
+
+                  <div class="form-group">
+                      <label for="customer_name">Your Name</label>
+                      <input type="text" id="customer_name" name="customer_name" class="form-control" required>
+                  </div>
+                
+                  <div class="form-group">
+                      <label for="address">Address</label>
+                      <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+                  </div>
+
+                  <div class="form-group">
+                      <label for="phone">Phone Number</label>
+                      <input type="tel" id="phone" name="phone" class="form-control" >
+                  </div>
+
+                  <button type="submit" class="btn btn-success">Submit Booking</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  // JavaScript for dynamically filling the form based on the maid clicked
+  $(document).ready(function() {
+      $('.book-btn').click(function() {
+          maidId = $(this).data('maid-id');
+          var maidName = $(this).data('maid-name');
+
+          // Fill the hidden fields with maid data
+          $('#maid_id').val(maidId);
+          $('#maid_name').val(maidName);
+
+          // Show the booking form modal
+          $('#bookingModal').modal('show');
+      });
+
+      // Search filter for Location
+      $('#search-location').on('keyup', function() {
+          var value = $(this).val().toLowerCase();
+          $('#maids-table tbody tr').filter(function() {
+              $(this).toggle($(this).find('.location').text().toLowerCase().indexOf(value) > -1);
+          });
+      });
+  });
+</script>
+
+<!-- Profile Popup -->
+<div id="profilePopup" class="popup">
+  <div class="popup-content">
+    <button id="closePopup">&times;</button>
+    <div class="container">
+      <h3 class="text-center" style="color: #0eb427; font-weight: bold;">Customer Profile</h3>
+
+      <!-- Registration Form inside the Popup -->
+      <form method="POST" action="{{ url_for('register_customer') }}">
+        <img src="static\images\maid.png" alt="img">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ session['user_name'] }}" readonly>
+        </div>
+
+         
+
+        <div class="form-group">
+            <label for="phone_no">Phone Number</label>
+            <input type="text" class="form-control" id="phone_no" name="phone_no" pattern="\d{10}" title="Phone number should be 10 digits" value="{{ session['phone_no'] }}" readonly>
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ session['email'] }}" readonly>
+        </div>
+      
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" class="form-control" id="location" name="location" value="{{ session['location'] }}" readonly>
+        </div>
+        </div>
+       
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript to Open and Close the Popup -->
+<script>
+  // Get the modal and the profile button
+  var modal = document.getElementById("profilePopup");
+  var openButton = document.getElementById("profileButton"); // Assuming you have a profile button
+  var closeButton = document.getElementById("closePopup");
+
+  // When the user clicks on the profile button, open the modal
+  openButton.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on the close button, close the modal
+  closeButton.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // Optional: Close the modal when clicking outside of it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+</body>
+</html>

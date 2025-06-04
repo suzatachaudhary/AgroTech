@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="static/css/styles.css" rel="stylesheet" />
+    <link href="static/css/chatbot.css" rel="stylesheet" />
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+        
+        h2, h3 {
+            color: #2c3e50;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .table tr:hover {
+            background-color: #ddd;
+        }
+        
+        .btn-danger {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <h2> Admin Dashboard</h2>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+        <h3>Maids</h3>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for maid in maids %}
+                    <tr>
+                        <td>{{ maid[0] }}</td>
+                        <td>{{ maid[1] }}</td>
+                        <td>{{ maid[2] }}</td>
+                        <td>{{ maid[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h3>Customers</h3>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                    <tr>
+                        <td>{{ customer[0] }}</td>
+                        <td>{{ customer[1] }}</td>
+                        <td>{{ customer[2] }}</td>
+                        <td>{{ customer[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+        <!-- Chatbot Toggle Button -->
+        <button id="chatbot-button">💬</button>
+
+        <!-- Chatbot Window -->
+        <div id="chatbot-window" class="chatbot-window"
+            style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 10px;">
+            <div id="chatbot-header"
+                style="font-size: 18px; font-weight: bold; padding: 10px; background-color: #007bff; color: white; border-radius: 8px 8px 0 0;">
+                Maid Service Chatbot
+            </div>
+            <div id="chatbot-messages"
+                style="overflow-y: auto; max-height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+                <!-- Messages will be displayed here -->
+            </div>
+            <input id="chatbot-input" type="text" placeholder="Ask me anything..."
+                style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+            <button id="send-message" class="btn btn-primary"
+                style="width: 100%; border-radius: 8px; margin-top: 5px;">Send</button>
+        </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

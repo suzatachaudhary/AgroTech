@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Listed Tools</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .tool-card { border: 1px solid #ccc; border-radius: 10px; padding: 15px; margin: 10px; display: inline-block; width: 300px; }
+        .tool-card button { margin: 5px; padding: 8px 12px; cursor: pointer; }
+        .delete-btn { background-color: red; color: white; border: none; }
+        .update-btn { background-color: blue; color: white; border: none; }
+    </style>
+</head>
+<body>
+
+    <h2>Your Listed Tools</h2>
+
+    {% if tools %}
+        {% for tool in tools %}
+            <div class="tool-card" id="tool-{{ tool.id }}">
+                <h3>{{ tool.name }}</h3>
+                <p><b>Rate:</b> ₹<span id="rate-{{ tool.id }}">{{ tool.hourly_rate }}</span>/hour</p>
+                <p><b>Location:</b> {{ tool.location }}</p>
+                <p><b>Available:</b> {{ "✅ Yes" if tool.available else "❌ No" }}</p>
+                
+                <!-- Update Hourly Rate -->
+                <input type="number" id="new-rate-{{ tool.id }}" placeholder="New Rate" min="1">
+                <button class="update-btn" onclick="updateTool({{ tool.id }})">Update</button>
+
+                <!-- Delete Tool -->
+                <button class="delete-btn" onclick="deleteTool({{ tool.id }})">Delete</button>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No tools listed yet.</p>
+    {% endif %}
+
+    <script>
+        function updateTool(toolId) {
+            let newRate = document.getElementById("new-rate-" + toolId).value;
+
+            if (!newRate || newRate <= 0) {
+                alert("Please enter a valid hourly rate!");
+                return;
+            }
+
+            fetch("/update_tool", {
+                method: "POST",
+                body: new URLSearchParams({ tool_id: toolId, new_hourly_rate: newRate }),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("✅ " + data.message);
+                    document.getElementById("rate-" + toolId).innerText = newRate;
+                } else {
+                    alert("❌ " + data.error);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function deleteTool(toolId) {
+            if (!confirm("Are you sure you want to delete this tool?")) return;
+
+            fetch("/delete_tool", {
+                method: "POST",
+                body: new URLSearchParams({ tool_id: toolId }),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("✅ " + data.message);
+                    document.getElementById("tool-" + toolId).remove();
+                } else {
+                    alert("❌ " + data.error);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+
+</body>
+</html>

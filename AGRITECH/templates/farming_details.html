@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriTech Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    /* General card container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Individual card styling */
+.card {
+    width: 300px;
+    background:rgb(238, 253, 250);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Image */
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* Card Body */
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+.market-block {
+    background-color:rgb(67, 215, 102);  /* Green */
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
+.risk-block {
+    background-color:rgb(254, 104, 119);  /* Red */
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
+.card .btn {
+    display: inline-block;
+    background:rgb(77, 200, 106);
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s ease-in-out;
+}
+
+.card .btn:hover {
+    background: #218838;
+}
+
+</style>
+</head>
+<body>
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-4">{{ farming[1] }}</h2>
+
+    <div class="card mb-3">
+        <img src="{{ url_for('static', filename='images/farm_images/' + farming[1] + '.jpg') }}" class="card-img-top" alt="{{ farming[1] }}">
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Labor Needs</h5>
+                    <p class="card-text">{{ farming[2] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tools Requirements</h5>
+                    <p class="card-text">{{ farming[3] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pesticide Requirements</h5>
+                    <p class="card-text">{{ farming[4] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                <div class="risk-block">
+                    <h5 class="card-title">Risk Factors</h5>
+                    <p class="card-text">{{ farming[5] }}</p>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                <div class="market-block">
+                    <h5 class="card-title">Market Value</h5>
+                    <p class="card-text">${{ farming[6] }}</p>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Growth Trend</h5>
+                    <p class="card-text">{{ farming[7] }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>

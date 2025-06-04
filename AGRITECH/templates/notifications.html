@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Notifications</h2>
+    <div id="notificationsList"></div>
+
+    <script>
+        function fetchNotifications() {
+            fetch("/get_notifications")
+                .then(response => response.json())
+                .then(data => {
+                    let notificationsDiv = document.getElementById("notificationsList");
+                    notificationsDiv.innerHTML = "";
+                    data.notifications.forEach(notification => {
+                        notificationsDiv.innerHTML += `<p>${notification.message}</p>`;
+                    });
+                });
+        }
+
+        setInterval(fetchNotifications, 3000);  // Auto-refresh every 3 sec
+        fetchNotifications();
+    </script>
+</body>
+</html>

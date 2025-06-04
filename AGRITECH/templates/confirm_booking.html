@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="static/css/styles.css" rel="stylesheet"   />
+    <link href="static/css/chatbot.css" rel="stylesheet"   />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{{ url_for('static', filename='images/bg.jpg') }}");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .confirm-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .confirm-btn:hover {
+            background-color: #45a049;
+        }
+
+        .back-btn {
+            margin-top: 15px;
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+      
+        <h2>Thank you {{ user_name }}  booking maid services for {{ customer_name }} with us!</h2>
+        <p>Our maid, {{ maid_name }}, will assist you soon!</p>
+        <p>You will recieve a OTP on mail which have to share when maid {{ maid_name }} will come to assist you.</p>
+        <h3> Kindly Provide Us your valuable feedback</h3>
+        <h3>Dear customer,{{customer_name }} If you having any issue you can contact us: </h3>
+        <p><strong>Phone:</strong> <a href="tel:+18001234567">+1-800-123-4567</a></p>
+        <p><strong>Email:</strong> <a href="mailto:customer.support@mail.com">customer.support@mail.com</a></p>
+
+        <a href="/customers_dashboard" class="back-btn">Back to Dashboard</a> <br>
+        <a href="/index.html" class="back-btn">home</a>
+    </div>
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbot-button">💬</button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="chatbot-window"
+        style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 10px;">
+        <div id="chatbot-header"
+            style="font-size: 18px; font-weight: bold; padding: 10px; background-color: #007bff; color: white; border-radius: 8px 8px 0 0;">
+            Maid Service Chatbot
+        </div>
+        <div id="chatbot-messages"
+            style="overflow-y: auto; max-height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            <!-- Messages will be displayed here -->
+        </div>
+        <input id="chatbot-input" type="text" placeholder="Ask me anything..."
+            style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        <button id="send-message" class="btn btn-primary"
+            style="width: 100%; border-radius: 8px; margin-top: 5px;">Send</button>
+    </div>
+    <!-- Optional Bootstrap JS and jQuery -->
+    <script src="static/js/script.js"></script>
+    <script src="static/js/chatbot.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Tools</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>🚜 Available Tools for Rent</h2>
+    <div class="tools-container">
+        {% for tool in tools %}
+        <div class="tool-card">
+            <h3>{{ tool.name }}</h3>
+            <p> Location: {{ tool.location }}</p>
+            <p> Rate: ₹{{ tool.hourly_rate }} per hour</p>
+            <button onclick="bookTool({{ tool.id }})">Book Now</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function bookTool(toolId) {
+            fetch(`/book_tool/${toolId}`, { method: 'POST' })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+    <style>
+        .tools-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .tool-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</body>
+</html>

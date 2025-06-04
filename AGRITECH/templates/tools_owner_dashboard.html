@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Owner Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Owner Dashboard</h2>
+
+    <h3>Your Listed Tools</h3>
+    <div id="listedTools"></div>
+
+    <h3>Rental Requests</h3>
+    <div id="rentalRequests"></div>
+
+    <h3>Ongoing Rentals</h3>
+    <div id="ongoingRentals"></div>
+
+    <h3>Completed Rentals</h3>
+    <div id="completedRentals"></div>
+
+    <h3>Earnings</h3>
+    <div id="earnings"></div>
+
+    <script>
+        function fetchOwnerDashboard() {
+            fetch("/owner_dashboard_data")
+                .then(response => response.json())
+                .then(data => {
+                    let listedToolsDiv = document.getElementById("listedTools");
+                    let rentalRequestsDiv = document.getElementById("rentalRequests");
+                    let ongoingRentalsDiv = document.getElementById("ongoingRentals");
+                    let completedRentalsDiv = document.getElementById("completedRentals");
+                    let earningsDiv = document.getElementById("earnings");
+
+                    listedToolsDiv.innerHTML = "<h4>Your Tools</h4>";
+                    data.tools.forEach(tool => {
+                        listedToolsDiv.innerHTML += `
+                            <div class="tool">
+                                <h3>${tool.name}</h3>
+                                <p>Hourly Rate: ₹${tool.hourly_rate}</p>
+                                <p>Location: ${tool.location}</p>
+                            </div>
+                        `;
+                    });
+
+                    rentalRequestsDiv.innerHTML = "<h4>Rental Requests</h4>";
+                    data.requests.forEach(request => {
+                        rentalRequestsDiv.innerHTML += `
+                            <div class="request">
+                                <p>Farmer: ${request.farmer_name}</p>
+                                <p>Tool: ${request.tool_name}</p>
+                                <p>Start: ${request.start_time}</p>
+                                <p>End: ${request.end_time}</p>
+                                <button onclick="approveRequest(${request.id})">Approve</button>
+                                <button onclick="rejectRequest(${request.id})">Reject</button>
+                            </div>
+                        `;
+                    });
+
+                    ongoingRentalsDiv.innerHTML = "<h4>Ongoing Rentals</h4>";
+                    data.ongoing.forEach(rental => {
+                        ongoingRentalsDiv.innerHTML += `
+                            <div class="rental">
+                                <p>Farmer: ${rental.farmer_name}</p>
+                                <p>Tool: ${rental.tool_name}</p>
+                                <p>Start: ${rental.start_time}</p>
+                                <p>End: ${rental.end_time}</p>
+                            </div>
+                        `;
+                    });
+
+                    completedRentalsDiv.innerHTML = "<h4>Completed Rentals</h4>";
+                    data.completed.forEach(rental => {
+                        completedRentalsDiv.innerHTML += `
+                            <div class="rental">
+                                <p>Farmer: ${rental.farmer_name}</p>
+                                <p>Tool: ${rental.tool_name}</p>
+                                <p>Start: ${rental.start_time}</p>
+                                <p>End: ${rental.end_time}</p>
+                                <p>Earnings: ₹${rental.total_price}</p>
+                            </div>
+                        `;
+                    });
+
+                    earningsDiv.innerHTML = `<h4>Total Earnings: ₹${data.total_earnings}</h4>`;
+                });
+        }
+
+        function approveRequest(requestId) {
+            fetch(`/approve_request/${requestId}`, { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    fetchOwnerDashboard();
+                });
+        }
+
+        function rejectRequest(requestId) {
+            fetch(`/reject_request/${requestId}`, { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    fetchOwnerDashboard();
+                });
+        }
+
+        fetchOwnerDashboard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Reset and body styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Dashboard Container */
+        .dashboard {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column; /* Stack profile and cards vertically */
+            align-items: flex-start; /* Align items to the left */
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1; /* Ensure content is above background */
+        }
+
+        /* Profile Button */
+        .profile-button {
+            background: linear-gradient(135deg, #ff8a00, #e52e71); /* Vibrant gradient button */
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px; /* Rounded corners */
+            padding: 15px 30px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px; /* Space below the profile button */
+        }
+        .profile-button:hover {
+            background: linear-gradient(135deg, #e52e71, #ff8a00); /* Reversed gradient on hover */
+            transform: scale(1.05); /* Slight scale-up effect */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Card Container */
+        .card-container {
+            display: flex; /* Align cards in a single row */
+            gap: 30px; /* Space between cards */
+            width: 100%; /* Full width for the card container */
+        }
+
+        /* Card Styling */
+        .card {
+            flex: 1; /* Allow cards to grow equally */
+            min-width: 300px; /* Minimum width for cards */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            background-color: #fff;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Card Title */
+        .card-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Card Button */
+        .card-button {
+            background-color: #007bff;
+            color: white;
+            padding: 14px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+        }
+        .card-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Background Image */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('{{ url_for('static', filename='images/background.png') }}') no-repeat center center/cover;
+            z-index: -1;
+            filter: brightness(0.7); /* Dim the background slightly for focus on content */
+        }
+
+        /* Watermark */
+        .watermark {
+            position: absolute;
+            font-size: 240px;
+            font-weight: 700;
+            color: rgba(16, 15, 7, 0.1); /* Subtle watermark color */
+            letter-spacing: 30px;
+            text-align: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            user-select: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="watermark">AgriTECH</div>
+    </div>
+
+    <div class="dashboard">
+        <!-- Profile Button -->
+        <button class="profile-button" onclick="goToProfile()">Go to Profile</button>
+
+        <!-- Card Container -->
+        <div class="card-container">
+            <!-- Crop Recommendation Card -->
+            <div class="card">
+                <div class="card-body">
+                    <img src="./static/images/crop_recom.png" class="card-img-top" alt="...">
+                    <h5 class="card-title">Crop Recommendation</h5>
+                    <p class="card-text">Starting a specific type of farming? 
+                        Understanding the key agricultural factors can make all the difference.Having quality land with the right soil type,
+                         suitable temperature, and optimal pH levels is crucial.</p>
+                    <button class="card-button" onclick="goToCropRecommendation()">View Recommendations</button>
+                </div>
+            </div>
+
+            <!-- Region Selection Card -->
+            <div class="card">
+                <div class="card-body">
+                    <img src="./static/images/region_crop.jpg" class="card-img-top" alt="...">
+                    <h5 class="card-title">Region Selection</h5>
+                    <p class="card-text"> Starting a specific type of farming?
+                        you can select the most suitable crops for your specific area,
+                         ensuring healthy growth and high yields.Get recommendation now</p>
+                    <button class="card-button" onclick="goToRegionSelection()">Select Region</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Functions for button actions (adjust routes as needed)
+        function goToProfile() {
+            window.location.href = "/profile";
+        }
+
+        function goToCropRecommendation() {
+            window.location.href = "/recommend";
+        }
+
+        function goToRegionSelection() {
+            window.location.href = "/region_selection";
+        }
+    </script>
+</body>
+</html>

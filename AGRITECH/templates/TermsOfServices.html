@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Executive Maids</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/styles.css" rel="stylesheet"/>
+    <link href="static/css/chatbot.css" rel="stylesheet"/>
+
+    <style>
+        /* Custom CSS */
+        body {
+            background: url("{{ url_for('static', filename='images/bg.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .card {
+            max-width: 800px;
+            width: 100%;
+            border-radius: 15px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .card:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
+            background-color: rgba(206, 232, 243, 0.8)
+        }
+
+        h2, h3 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Gradient overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+            h2, h3 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+        <div class="card p-4 shadow-lg">
+            <h2 class="text-center mb-4">Terms of Service</h2>
+
+            <h3>1. Introduction</h3>
+            <p>Welcome to AGITECH solutions! These Terms of Service govern your access to and use of our website, services, and content. Please read them carefully.</p>
+
+            <h3>2. Service Availability</h3>
+            <p>We strive to provide continuous service availability, but we do not guarantee uninterrupted access at all times. Services may be temporarily unavailable due to maintenance or other factors.</p>
+
+            <h3>3. Account Registration</h3>
+            <p>To use certain services, you may need to create an account. You are responsible for maintaining the confidentiality of your account information.</p>
+
+            <h3>4. User Conduct</h3>
+            <p>You agree not to engage in any activities that could harm, disrupt, or interfere with the services or the experience of other users.</p>
+
+            <h3>5. Termination</h3>
+            <p>We reserve the right to terminate your access to our services if you violate these terms or engage in misconduct.</p>
+
+            <h3>6. Limitation of Liability</h3>
+            <p>Our liability is limited to the total amount paid for services. We are not liable for indirect or consequential damages.</p>
+
+            <h3>7. Changes to Terms</h3>
+            <p>We may modify these Terms of Service from time to time. Any significant changes will be communicated to users and posted on this page.</p>
+
+            <h3>8. Contact Us</h3>
+            <p>If you have any questions regarding these Terms of Service, please contact us at:</p>
+            <ul>
+                <li>Email: <a href="mailto:contact@maidservice.com">agritechsolutions@gmail.com</a></li>
+                <li>Phone: +123 456 7890</li>
+                <li>Address: Vadodara, Gujarat, India</li>
+            </ul>
+
+            <button class="btn btn-primary mt-4" onclick="window.location.href='/'">Back to Home</button>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbot-button">💬</button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="chatbot-window"
+        style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 10px;">
+        <div id="chatbot-header"
+            style="font-size: 18px; font-weight: bold; padding: 10px; background-color: #007bff; color: white; border-radius: 8px 8px 0 0;">
+            Service Chatbot
+        </div>
+        <div id="chatbot-messages"
+            style="overflow-y: auto; max-height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            <!-- Messages will be displayed here -->
+        </div>
+        <input id="chatbot-input" type="text" placeholder="Ask me anything..."
+            style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        <button id="send-message" class="btn btn-primary"
+            style="width: 100%; border-radius: 8px; margin-top: 5px;">Send</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="static/js/script.js"></script>
+    <script src="static/js/chatbot.js"></script>
+</body>
+</html>

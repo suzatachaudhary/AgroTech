@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggestion Dashboard</title>
+    <style>
+        /* General card container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Individual card styling */
+.card {
+    width: 300px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Image */
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* Card Body */
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Button Styling */
+.card .btn {
+    display: inline-block;
+    background: #28a745;
+    color: #fff;
+    padding: 10px 15px;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s ease-in-out;
+}
+
+.card .btn:hover {
+    background: #218838;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Suggestion Dashboard, {{ user_name }}</h1>
+
+    <!-- Search Bar for Farming Types -->
+    <input type="text" id="searchBar" placeholder="Search for a farming type..." oninput="searchFarming()">
+
+
+    {% block content %}
+    <div class="container">
+        <h2 class="text-center mt-4">Farming Suggestions</h2>
+        <div class="row">
+            {% for farming in farming_list %}
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/farm_images/' + farming[1] + '.jpg') }}" class="card-img-top" alt="{{ farming[1] }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ farming[1] }}</h5>
+                        <a href="{{ url_for('farming_details', farming_id=farming[0]) }}" class="btn btn-primary">Go</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+
+     <script>
+        function searchFarming() {
+            const searchQuery = document.getElementById('searchBar').value.toLowerCase();
+            const farmingItems = document.querySelectorAll('.farming-item');
+            farmingItems.forEach(function(item) {
+                const title = item.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(searchQuery)) {
+                    item.style.display = 'block';  // Show the item if search matches
+                } else {
+                    item.style.display = 'none';  // Hide the item if search doesn't match
+                }
+            });
+        }
+    </script>
+</body>
+</html>

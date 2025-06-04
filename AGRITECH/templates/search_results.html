@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="static/css/styles.css" rel="stylesheet" />
+    <link href="static/css/chatbot.css" rel="stylesheet" />
+    <title>Search Results</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Search Results</h2>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+        <ul class="list-group mt-3">
+            {% for maid in maids %}
+                <li class="list-group-item">
+                    <h5>{{ maid[1] }}</h5>
+                    <p>Phone: {{ maid[2] }}</p>
+                    <p>Email: {{ maid[3] }}</p>
+                    <a href="/book_maid" class="btn btn-primary">Book</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="static/js/script.js"></script>
+    <script src="static/js/chatbot.js"></script>
+</body>
+</html>

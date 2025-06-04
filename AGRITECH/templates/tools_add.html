@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Tool for Rental</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: auto;
+        }
+        h2 {
+            color: #28a745;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #218838;
+        }
+        #message {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .terms-container {
+            text-align: left;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .terms-container input {
+            width: auto;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🚜 Add Your Tool for Rental</h2>
+
+        <form id="addToolForm">
+            <label>Select Tool Name:</label>
+            <select id="name" required>
+                <option value="">-- Choose a Tool --</option>
+                <option value="Tractor">Tractor</option>
+                <option value="Harvester">Harvester</option>
+                <option value="Plow">Plow</option>
+                <option value="Seeder">Seeder</option>
+                <option value="Sprayer">Sprayer</option>
+                <option value="Irrigation Pump">Irrigation Pump</option>
+                <option value="Cultivator">Cultivator</option>
+                <option value="Rotavator">Rotavator</option>
+                <option value="Baler">Baler</option>
+                <option value="Thresher">Thresher</option>
+            </select>
+
+            <label>Hourly Rate (₹):</label>
+            <input type="number" id="hourly_rate" min="1" required>
+
+            <label>Location:</label>
+            <input type="text" id="location" required>
+
+            <div class="terms-container">
+                <input type="checkbox" id="agree_terms">
+                <label for="agree_terms">I agree to all Terms & Conditions of AgriTECH.</label>
+            </div>
+
+            <button type="submit">✅ Add Tool</button>
+        </form>
+
+        <p id="message"></p>
+    </div>
+
+    <script>
+        document.getElementById("addToolForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let ownerId = "{{ session['user_id'] }}";  
+            if (!ownerId) {
+                alert("You must be logged in to add a tool.");
+                return;
+            }
+
+            if (!document.getElementById("agree_terms").checked) {
+                alert("❌ Please accept our Terms & Conditions to proceed.");
+                return;
+            }
+
+            let toolData = {
+                owner_id: ownerId,
+                name: document.getElementById("name").value.trim(),
+                hourly_rate: parseFloat(document.getElementById("hourly_rate").value),
+                location: document.getElementById("location").value.trim()
+            };
+
+            fetch("/add_tool", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(toolData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                let messageEl = document.getElementById("message");
+                messageEl.innerText = data.message;
+                messageEl.style.color = data.success ? "green" : "red";
+
+                if (data.success) {
+                    document.getElementById("addToolForm").reset();
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+
+</body>
+</html>

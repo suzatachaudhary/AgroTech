@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+    /* Crop Recommendation Page Styles */
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.crop-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.crop-block {
+    background: #ccbebe;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 8px 8px 15px #bebebe, -8px -8px 15px #ffffff;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.crop-block:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 5px 10px #4e81a5, -5px -5px 10px #ffffff;
+}
+
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #555;
+}
+.crop-block {
+    cursor: pointer;
+}
+
+
+</style>
+</head>
+<body>
+    <h1>Best Crop Recommendations</h1>
+    <!-- Crop Recommendations -->
+<div class="crop-container">
+    {% for crop in crops %}
+    <div class="crop-block">
+        <a href="{{ url_for('crop_details', crop_name=crop) }}" class="crop-link">
+            {{ crop }}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Back to Dashboard -->
+<a href="{{ url_for('dashboard') }}" class="back-button">Back to Dashboard</a>
+</body>
+</html>

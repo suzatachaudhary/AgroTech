@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Your Product</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            background-color: #28a745;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .navbar a .material-icons {
+            font-size: 1.8em;
+        }
+
+        /* Profile Section */
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .profile span {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 100px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            
+            
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #28a745;;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .back-btn {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #28a745;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Hide profile info initially */
+        #profilePopup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+
+        #closePopup {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #333;
+        }
+
+        #closePopup:hover {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar 
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+        </div>
+        <div class="profile">
+            <img src="static/images/profile.png" alt="Profile Icon">
+            <span>User Name</span>
+        </div>
+    </div>-->
+    
+    
+
+    <div class="container">
+        <h1>Sell Your Product</h1>
+        <form method="POST" action="/submit_product">
+            <input type="text" name="Your name" placeholder="Seller Name" required>
+            <input type="number" name="quantity" placeholder="Quantity (kg)" required>
+            <input type="number" name="price_per_kg" placeholder="Price per kg" required>
+            <input type="text" name="location" placeholder="Location" required>
+            <select name="category" id="category" required onchange="toggleOtherInput()">
+                <option value="" disabled selected hidden>Select a category</option>
+                <option value="wheat">Wheat</option>
+                <option value="rice">Rice</option>
+                <option value="corn">Corn</option>
+                <option value="cotton">Cotton</option>
+                <option value="mustard_seeds">Mustard Seeds</option>
+                <option value="sugarcane">Sugarcane</option>
+                <option value="sunflower">Sunflower</option>
+                <option value="coffee">Coffee</option>
+                <option value="peanut">Peanut</option>
+                <option value="pulses">Pulses</option>
+                <option value="tomato">Tomato</option>
+                <option value="potato">Potato</option>
+                <option value="onion">Onion</option>
+                <option value="garlic">Garlic</option>
+                <option value="banana">Banana</option>
+                <option value="mango">Mango</option>
+                <option value="kiwi">Kiwi</option>
+                <option value="alovera">Aloe Vera</option>
+                <option value="grapes">Grapes</option>
+                <option value="apple">Apple</option>
+                <option value="chickpeas">Chickpeas</option>
+                <option value="gram">Gram</option>
+                <option value="chilli">Chilli</option>
+                <option value="green_vegetables">Green Vegetables</option>
+                <option value="others">Others</option>
+            </select>
+            
+            
+            <!-- Additional input field for custom category -->
+            <input type="text" name="custom_category" id="customCategory" placeholder="Enter custom category" style="display: none;" />
+            
+            <button type="submit">List Product</button>
+        </form>
+        <a href="javascript:history.back()" class="back-btn">Go Back</a>
+    </div>
+    
+    
+
+    <!-- Profile Popup 
+    <div id="profilePopup">
+        <div class="popup-content">
+            <button id="closePopup">&times;</button>
+            <div class="container">
+                <h3 class="text-center" style="color: #0eb427; font-weight: bold;">Customer Profile</h3>
+                <form method="POST" action="{{ url_for('register_customer') }}">
+                    <img src="static\images\maid.png" alt="img">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ session['user_name'] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone_no">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_no" name="phone_no" pattern="\d{10}" title="Phone number should be 10 digits" value="{{ session['phone_no'] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ session['email'] }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" value="{{ session['location'] }}" readonly>
+                    </div>
+                    <a href="/logout" class="btn btn-danger">Logout</a>
+                </form>
+            </div>
+        </div>
+    </div>-->
+
+    
+    <!--    var modal = document.getElementById("profilePopup");
+        var openButton = document.getElementById("profileButton"); // Profile button
+        var closeButton = document.getElementById("closePopup");
+
+        // Show profile on button click
+        openButton.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Close profile on close button click
+        closeButton.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Optional: Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }-->
+    <script>
+        function toggleOtherInput() {
+            var categorySelect = document.getElementById("category");
+            var customInput = document.getElementById("customCategory");
+    
+            if (categorySelect.value === "others") {
+                customInput.style.display = "block";
+                customInput.setAttribute("required", "true");
+            } else {
+                customInput.style.display = "none";
+                customInput.removeAttribute("required");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("success")) {
+                alert("Your product has been listed successfully for sale!");
+            }
+        });
+    </script>
+</body>
+</html>

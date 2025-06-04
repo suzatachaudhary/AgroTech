@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <link href="static/css/styles.css" rel="stylesheet" />
+    <link href="static/css/chatbot.css" rel="stylesheet" />
+
+    <title>About Us - AgriTech Innovations</title>
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/agri-bg.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            color: #064635;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .about-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 25px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .about-container:hover {
+            box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            font-size: 30px;
+            color: #28a745;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .services-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .services-list li {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .services-list li:hover {
+            background-color: #218838;
+        }
+
+        .back-button {
+            display: block;
+            width: 120px;
+            margin: 20px auto;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="about-container">
+        <h2>About Us - AgriTech Innovations</h2>
+        <p>Welcome to AgriTech Innovations, where cutting-edge technology meets sustainable farming. We are committed to revolutionizing agriculture through innovation, ensuring higher yields, improved efficiency, and a greener planet. Our team of experts blends AI, IoT, and data analytics to empower farmers and agribusinesses.</p>
+        <p>Our services include:</p>
+        <ul class="services-list">
+            <li>Precision Farming Solutions</li>
+            <li>Labour Booking System </li>
+            <li>AI-based Crop's Health Monitoring</li>
+            <li>Advanced Tools Booking System </li>
+            <li>Best Crop Recommendations</li>
+            <li>Buy and Sell Your Farming Products</li>
+            <li>Chat Bot For Users </li>
+            <li>Integreted Google Map for various fields </li>
+            <li>Easy Payments Methods </li>
+        </ul>
+        <p>At AgriTech Innovations, we believe in harnessing technology to create a sustainable future for agriculture. Join us in shaping the future of smart farming. Contact us today to learn how we can help enhance your agricultural productivity.
+        Farmers can get job from the persons who need labours for their farming.Farmers can easily connects to the buyers and able to get best prices for their products 
+        </p>
+        <a href="javascript:history.back()" class="back-button">Back</a>
+    </div>
+</body>
+</html>

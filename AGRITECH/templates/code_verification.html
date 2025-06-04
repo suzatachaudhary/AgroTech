@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Verification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h2>Code Verification</h2>
+    <form id="verifyCodeForm">
+        <label>Booking ID:</label>
+        <input type="text" id="booking_id" required><br><br>
+
+        <label>Enter Code:</label>
+        <input type="text" id="verification_code" required><br><br>
+
+        <button type="submit">Verify</button>
+    </form>
+
+    <script>
+        document.getElementById("verifyCodeForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let bookingId = document.getElementById("booking_id").value;
+            let verificationCode = document.getElementById("verification_code").value;
+
+            fetch("/verify_code", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ booking_id: bookingId, verification_code: verificationCode })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            });
+        });
+    </script>
+</body>
+</html>

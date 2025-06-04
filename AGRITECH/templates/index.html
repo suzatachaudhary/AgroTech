@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farming Service</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="static/css/chatbot.css" rel="stylesheet"   />
+    <link href="static/css/index.css" rel="stylesheet"   />
+    
+</head>
+
+<body>
+<div id="navbar-container">
+    <canvas id="navbarWaterCanvas"></canvas> <!-- Three.js canvas -->
+    <nav class="navbar navbar-expand-lg mt-3">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <div class="farmera-logo"></div>
+                <div class="overlay">
+                    <div class="farmera-text"></div>
+                </div>
+                <div class="fullscreen-image"></div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#Services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about_us.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="reviews.html">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="register.html">Register</a>
+                    </li>
+                </ul>
+                <a href="/login" class="btn btn-primary login-btn">Login</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- 3D Water Pipe Below Navbar -->
+<div class="water-pipe"></div>
+
+<!-- Water Drops Container -->
+<div class="water-drop-container"></div>
+        <!-- Home -->
+        <section id="Home" class="mar-top">
+            <div class="container">
+                <div class="row d-flex justify-content-between align-center">
+                    <div class="col-lg-6">
+                        <p class="mt-5 trusted-maid-service">Growing Success Together</p>
+                        <p class="mt-5 tagline">Agritech is the Simplest way to get success in farming <br>with our multiple services...</p>
+                        <a href="/read-more" class="read-more-btn">Read More</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--Services -->
+        <section id="Services">
+            <div class="container mar-top">
+                <h1 class="mb-5 mbagline">OUR FEATURED SERVICES</h1>
+                <h3 class="mt-5 mtagline"> Hire Professionals,<br /> Experienced Specifically for your needs</h3>
+                <div class="row d-flex justify-content-between">
+                    <div class="card" style="width: 18rem;">
+                        <img src="./static/images/m1.jpeg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title">LABOURS</h4>
+                            <p class="card-text">Need extra hands on your farm? Let us help! Our hardworking team
+                                 offers reliable labor for planting, harvesting, irrigation, and more.
+                                  Enjoy the peace of mind knowing your farm is in good hands. Book with us today!</p>
+                                  <button class="btn btn-primary" onclick="redirectToRegister()">Book Now</button>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                        <img src="./static/images/m2.jpeg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h4 class="card-title">TOOLS</h4>
+                            <p class="card-text">Looking for reliable tools to boost your farm’s productivity?
+                                 We’ve got you covered! Our top-quality rental tools are perfect for planting,
+                                  harvesting, irrigation, and more. Reserve your tools today!</p>
+                                  <button class="btn btn-primary" onclick="redirectToRegister()">Book Now</button>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                        <img src="./static/images/suggetion.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">SUGGETIONS</h5>
+                            <p class="card-text"> Starting a specific type of farming?
+                                You’ll need quality land, water, the right tools, and crop management knowledge.
+                                 Access to labor and markets is essential for success. 
+                                 Get the right foundation to grow your farm today!</p>
+                            <button class="btn btn-primary" onclick="redirectToRegister()">GET Now</button>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 18rem;">
+                        <img src="./static/images/buy_sell.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Buy & sell products</h5>
+                            <p class="card-text" href="">Seamlessly buy and sell products with our user-friendly platform.
+                                  Our marketplace connects buyers and sellers with ease.
+                                  Enjoy a hassle-free experience,
+                                 secure transactions, and a wide variety of products to choose from.</p>
+                                 <button class="btn btn-primary" onclick="redirectToRegister()">G0</button>
+                        </div>
+                </div>
+                    <div class="card" style="width: 18rem;">
+                        <img src="./static/images/recommendation.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">CROP RECOMMENDATIONS</h5>
+                            <p class="card-text">Not sure what to plant? We’
+                                ve got you covered! Our smart recommendations help you choose the best crops based on soil,
+                                 climate, and market demand. Grow smarter, harvest better! 🌱🚜</p>
+                                 <button class="btn btn-primary" onclick="redirectToRegister()">Get Now</button>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 18rem;">
+                        <img src="./static/images/crop_disease.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">CropGuard</h5>
+                            <p class="card-text">Quickly identify and treat crop diseases with our AI-powered tool.
+                                 UPLOAD a photo of your crop, get instant diagnosis,
+                                 and receive tailored treatment recommendations to ensure healthy and thriving plants.</p>
+                                 <button class="btn btn-primary" onclick="redirectToRegister()">Get Now</button>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+        <!--Why choose us-->
+        <section id="why-choose-us">
+            <div class="container">
+                <div class="heading">
+                    <h1 class="mb-5">Why Choose Us</h1>
+                    <img src="./static/images/why_choose_us.jpeg" alt="Company Logo" class="logo">
+                </div>
+                <div class="reasons">
+                    <div class="reason">
+                        <img src="./static/images/verify.png" alt="Verification & Assessment">
+                        <h3>Verification & Assessment</h3>
+                        <p>Employing AI, we enhance our rigorous physical and telephonic verification processes to ensure the highest quality assessments of our labours.</p>
+                    </div>
+                    <div class="reason">
+                        <img src="./static/images/transpart_pricing.png" alt="Transparent Pricing">
+                        <h3>Transparent Pricing</h3>
+                        <p>You get what you pay for. Additionally, you get a replacement guarantee, verification documents, and more!</p>
+                    </div>
+                    <div class="reason">
+                        <img src="./static/images/Customer_support.png" alt="Customer Support">
+                        <h3>Customer Support</h3>
+                        <p>Our team will always be there to hear you out and solve your issues.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Highlights -->
+        <!--<section>
+            <div class="carousel-container">
+                <h2 class="carousel-heading">Highlights @AgriTech</h2>
+                <div class="carousel">
+                    <div class="carousel-track">
+                        <img src="{{ url_for('static', filename='images/H_1.jpeg') }}" alt="Image 1">
+                        <img src="{{ url_for('static', filename='images/H_2.jpeg') }}" alt="Image 2">
+                        <img src="{{ url_for('static', filename='images/H_3.jpeg') }}" alt="Image 3">
+                        <img src="{{ url_for('static', filename='images/H_4.jpeg') }}" alt="Image 4">
+                        <img src="{{ url_for('static', filename='images/H_5.jpeg') }}" alt="Image 5">
+                        <img src="{{ url_for('static', filename='images/H_6.jpeg') }}" alt="Image 6">
+                        <img src="{{ url_for('static', filename='images/H_7.jpeg') }}" alt="Image 7">
+                        <img src="{{ url_for('static', filename='images/H_8.jpeg') }}" alt="Image 8">
+                    </div>
+                </div>
+            </div>
+        </section>-->
+        <div class="slider">
+            <div class="item">
+                <img src="{{ url_for('static', filename='images/H_1.jpeg') }}" alt="Image 1">
+            </div>
+            <div class="item">
+                <img src="{{ url_for('static', filename='images/H_2.jpeg') }}" alt="Image 2">
+            </div>
+            <div class="item">
+                <img src="{{ url_for('static', filename='images/H_3.jpeg') }}" alt="Image 3">
+            </div>
+            <div class="item">
+                <img src="{{ url_for('static', filename='images/H_4.jpeg') }}" alt="Image 4">
+            </div>
+            <div class="item">
+                <img src="{{ url_for('static', filename='images/H_5.jpeg') }}" alt="Image 5">
+            </div>
+            <div class="item">
+                <img src="{{ url_for('static', filename='images/H_6.jpeg') }}" alt="Image 6">
+            </div>
+            <div class="item">
+                <img src="{{ url_for('static', filename='images/H_7.jpeg') }}" alt="Image 7">
+            </div>
+            <button id="next">></button>
+            <button id="prev"><</button>
+        </div>
+        
+
+
+
+        <br><br> <br> <br> <br> <br>
+        <footer> <span>
+                <div class="footer-content">
+                    <div class="contact">
+                        <h3>Contact Us</h3>
+                        <ul>
+                            <li><i class="bi bi-envelope"></i> Email: agitechsolutions@gamil.com</li>
+                            <li><i class="bi bi-phone"></i> Phone: +123 456 7890</li>
+                            <li><i class="bi bi-geo-alt"></i> Address: Vadodara, Gujarat, India</li>
+                        </ul>
+                    </div>
+                    <div class="links">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="about_us.html">About Us</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="privacyPolicy.html">Privacy Policy</a></li>
+                            <li><a href="TermsOfServices.html">Terms of Service</a></li>
+                            <li><a href="tearmsAndConditionCustomer.html">Terms and condition for Customer </a></li>
+                            <li><a href="tearmsAndConditionMaid.html">Terms and condition for labours</a></li>
+                            <li><a href="services.html">Our Services</a></li>
+                        </ul>
+                    </div>
+                    <div class="social-media">
+                        <h3>Follow Us</h3>
+                        <ul>
+                            <li><a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i> Facebook</a></li>
+                            <li><a href="https://twitter.com" target="_blank"><i class="bi bi-twitter"></i> Twitter</a></li>
+                            <li><a href="https://instagram.com" target="_blank"><i class="bi bi-instagram"></i> Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </span>
+        </footer>
+
+       
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script>
+        function redirectToRegister() {
+            // Redirect to the registration page with a transition effect
+            document.body.style.transition = "opacity 0.5s ease";
+            document.body.style.opacity = 0;
+            setTimeout(function() {
+                window.location.href = "register.html";
+            }, 500);
+        }
+
+        // JavaScript to toggle the content display
+        document.querySelector('.read-more-btn').addEventListener('click', function () {
+            var content = document.querySelector('.content');
+            if (content.style.display === 'none') {
+                content.style.display = 'block';
+                this.textContent = 'Read Less'; // Change button text to "Read Less"
+            } else {
+                content.style.display = 'none';
+                this.textContent = 'Read More'; // Change button text back to "Read More"
+            }
+        });
+        //for last section anima..
+    let items = document.querySelectorAll('.slider .item');
+    let next = document.getElementById('next');
+    let prev = document.getElementById('prev');
+    
+    let active = 3;
+    function loadShow(){
+        let stt = 0;
+        items[active].style.transform = `none`;
+        items[active].style.zIndex = 1;
+        items[active].style.filter = 'none';
+        items[active].style.opacity = 1;
+        for(var i = active + 1; i < items.length; i++){
+            stt++;
+            items[i].style.transform = `translateX(${120*stt}px) scale(${1 - 0.2*stt}) perspective(16px) rotateY(-1deg)`;
+            items[i].style.zIndex = -stt;
+            items[i].style.filter = 'blur(5px)';
+            items[i].style.opacity = stt > 2 ? 0 : 0.6;
+        }
+        stt = 0;
+        for(var i = active - 1; i >= 0; i--){
+            stt++;
+            items[i].style.transform = `translateX(${-120*stt}px) scale(${1 - 0.2*stt}) perspective(16px) rotateY(1deg)`;
+            items[i].style.zIndex = -stt;
+            items[i].style.filter = 'blur(5px)';
+            items[i].style.opacity = stt > 2 ? 0 : 0.6;
+        }
+    }
+    loadShow();
+    next.onclick = function(){
+        active = active + 1 < items.length ? active + 1 : active;
+        loadShow();
+    }
+    prev.onclick = function(){
+        active = active - 1 >= 0 ? active - 1 : active;
+        loadShow();
+    }
+    </script>
+
+    <script src="static/js/before_login.js"></script>
+    <script src="static/js/chatbot.js"></script>
+    <script src="static/js/logo.js"></script> 
+
+</body>
+
+</html>

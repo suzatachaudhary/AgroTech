@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Booking System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">🏠 Home</a></li>
+            <li><a href="/profile">👤 Profile</a></li>
+            <li><a href="/transactions">💰 Transactions</a></li>
+            <li><a href="/logout">🚪 Logout</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <section id="take-rent">
+            <h2>🚜 Take Rent Section</h2>
+            <button onclick="viewAvailableTools()">Available Tools</button>
+            <button onclick="viewRentalRequests()">My Rental Requests</button>
+            <button onclick="viewBookingStatus()">Booking Status</button>
+        </section>
+
+        <section id="give-rent">
+            <h2>🛠️ Give Rent Section</h2>
+            <button onclick="listYourTool()">List Your Tool</button>
+            <button onclick="viewListedTools()">My Listed Tools</button>
+            <button onclick="viewOwnerBookingStatus()">Booking Status</button>
+        </section>
+    </div>
+    
+    <div id="notifications">
+        <h3>📢 Notifications & Live Updates</h3>
+        <ul id="notification-list"></ul>
+    </div>
+    
+    <script src="{{ url_for('static', filename='tools.js') }}"></script>
+</body>
+</html>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    nav ul {
+        list-style: none;
+        padding: 0;
+        background: #333;
+        overflow: hidden;
+        color: white;
+        display: flex;
+        justify-content: space-around;
+    }
+    nav ul li {
+        padding: 15px;
+    }
+    nav ul li a {
+        color: white;
+        text-decoration: none;
+    }
+    .container {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px;
+    }
+    section {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 40%;
+    }
+    button {
+        display: block;
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #218838;
+    }
+    #notifications {
+        text-align: center;
+        background: white;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+<script>
+    function viewAvailableTools() {
+        window.location.href="/available_tools";
+    }
+    function viewRentalRequests() {
+        alert("Displaying rental requests...");
+    }
+    function viewBookingStatus() {
+        alert("Displaying booking status...");
+    }
+    function listYourTool() {
+        window.location.href = "/add_tool_page";
+    }
+    function viewListedTools() {
+        window.location.href="/your_listed_tools"
+    }
+    function viewOwnerBookingStatus() {
+        alert("Displaying owner booking status...");
+    }
+</script>

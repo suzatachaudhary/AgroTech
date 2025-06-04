@@ -1,0 +1,461 @@
+<!--maids_dashboard.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link href="static/css/styles.css" rel="stylesheet" />
+  <link href="static/css/chatbot.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+  <title>Profile Popup</title>
+  <style>
+    body {
+        background: url("{{ url_for('static', filename='images/bg.jpg') }}") no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: rgb(223, 232, 239); /* Light blue background */
+        height: 100vh; /* Full screen height */
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        padding: 0 20px;
+        z-index: 10;
+    }
+
+    .top-bar h2 {
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+        flex-grow: 1; /* Makes the heading take available space */
+    }
+
+    .top-bar button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50; /* Green background */
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+
+    .top-bar button:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+    /* Profile button and logout button */
+    #logoutButton {
+        background-color: #dc3545;
+    }
+
+    #logoutButton:hover {
+        background-color: #c82333;
+    }
+
+    /* Popup styling */
+    .popup {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        transition: right 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .popup-content {
+        width: 90%;
+        max-width: 800px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 12px;
+        overflow-y: auto;
+        max-height: 90%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup.active {
+        right: 0;
+    }
+
+    #closePopup {
+        background-color: white;
+        border: none;
+        font-size: 20px;
+        border-radius: 10px;
+        color: red;
+        cursor: pointer;
+        float: right;
+    }
+
+    .container {
+        text-align: center;
+        margin-top: 150px;
+        justify-content: center;
+        align-items: center;     
+        
+    }
+
+    .card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    
+    .form-control {
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        padding: 10px ;
+        width: 1000px; /* Adjust the width to make the input smaller */
+    }
+
+
+    
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+    
+
+    
+  </style>
+</head>
+<body>
+
+  <!-- Top bar with profile button, heading, and logout button -->
+  <div class="top-bar">
+    <button id="profileButton"><i class="fa-solid fa-user"></i></button>
+    <h2>Welcome to Maid Dashboard,  {{ session['user_name'] }}</h2>
+  
+    <a href="/logout" class="btn btn-danger" id="logoutButton">Logout</a>
+  </div>
+
+  <!-- Profile Popup -->
+  <div id="profilePopup" class="popup">
+    <div class="popup-content">
+      <button id="closePopup">&times;</button>
+      <div class="container">
+        <div class="maid-profile card mt-4 p-3">
+          <h3>Labour Profile</h3>
+          <form>
+            <div class="form-group">
+              <label for="maidPhoto">Photo</label>
+              <img src="{{ url_for('static', filename='images/maid.png') }}" alt="Maid Photo" class="maid-photo mb-3" id="maidPhoto">
+            </div>
+
+            <div class="form-group">
+              <label for="maidId">LABOUR ID:</label>
+              <input type="text" class="form-control" id="maidId" value="{{ session['user_id']}}" readonly>
+          </div>
+
+            <div class="form-group">
+              <label for="maidName">Name:</label>
+              <input type="text" class="form-control" id="maidName" value="{{ session['user_name'] }}" readonly>
+            </div>
+            <div class="form-group">
+              <label for="phone_no">Phone Number</label>
+              <input type="text" class="form-control" id="phone_no" value="{{ session['phone_no'] }}" readonly>
+            </div>
+           
+         
+          
+          <div class="form-group">
+              <label for="maidEmail">Email:</label>
+              <input type="email" class="form-control" id="maidEmail" value="{{ session['email'] }}" readonly>
+          </div>
+          
+          
+          <div class="form-group">
+              <label for="maidAadhar">Aadhar Number:</label>
+              <input type="text" class="form-control" id="maidAadhar" value="{{ session['aadhar'] }}" readonly>
+          </div>
+          
+          <div class="form-group">
+              <label for="maidAddress">Address:</label>
+              <input type="text" class="form-control" id="maidAddress" value="{{ session['address'] }}" readonly>
+          </div>
+          
+          <div class="form-group">
+              <label for="maidFoodPreference">Food Preference:</label>
+              <input type="text" class="form-control" id="maidFoodPreference" value="{{ session['food_preference'] }}" readonly>
+          </div>
+          
+          <div class="form-group">
+              <label for="maidSkills">Skills:</label>
+              <input type="text" class="form-control" id="maidSkills" value="{{ session['skills'] }}" readonly>
+          </div>
+          
+          <div class="form-group">
+              <label for="maidGender">Gender:</label>
+              <input type="text" class="form-control" id="maidGender" value="{{ session['gender'] }}" readonly>
+          </div>
+          
+          <div class="form-group">
+              <label for="maidLocation">Location:</label>
+              <input type="text" class="form-control" id="maidLocation" value="{{ session['location'] }}" readonly>
+          </div>
+          
+      
+          
+          <div class="form-group">
+              <label for="maidRegistrationDatetime">Registration Date & Time:</label>
+              <input type="text" class="form-control" id="maidRegistrationDatetime" value="{{ session['registration_datetime'] }}" readonly>
+          </div>
+
+
+            <div class="form-group">
+              <label for="maidCharges">Charges:</label>
+              <input type="text" class="form-control" id="maidCharges" value="₹100 for Veg, ₹150 for Non-Veg" readonly>
+            </div>
+            <div class="form-group">
+              <label for="readyToWork">Available:</label>
+              <select class="form-control" id="readyToWork">
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="workType">Select Work:</label>
+              <select class="form-control" id="workType" multiple>
+                <option value="childCare">Child Care</option>
+                <option value="elderCare">Elder Care</option>
+                <option value="cook">Cook</option>
+                <option value="cleaning">Cleaning</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content for timer and stopwatch -->
+  <div class="container">
+    
+
+    <!-- Code Input Section -->
+    <div class="code-section">
+        <label for="codeInput">Enter Code:</label>
+        <input type="password" id="codeInput" class="form-control" placeholder="Enter the code" />
+        <button id="submitCode" class="btn btn-primary mt-3">Submit Code</button><br> <br>
+            <button id="acceptBooking" class="btn btn-success btn-section" disabled> Booking completed</button> <br> <br>
+    </div>
+    
+
+   <!-- Timer Section -->
+<div id="timer" class="timer"></div>
+<button id="pauseTimer" class="btn btn-warning" disabled>Pause Timer</button> 
+<button id="resumeTimer" class="btn btn-info" disabled>Resume Timer</button>
+
+<!-- Stopwatch Section -->
+<div class="stopwatch-section"><br>
+    <h3>Stopwatch</h3> 
+    <button id="startStopwatch" class="btn btn-success">Start Stopwatch</button>
+    <button id="stopStopwatch" class="btn btn-danger" disabled>Stop Stopwatch</button>
+    <button id="restartStopwatch" class="btn btn-primary" disabled>Restart Stopwatch</button>
+    <button id="lapStopwatch" class="btn btn-secondary" disabled>Lap</button>
+    <div id="stopwatchTimestamp" class="stopwatch-timestamp"></div>
+    <div id="lapTimes" class="lap-times"></div>
+</div>
+
+<script>
+  document.getElementById('profileButton').addEventListener('click', () => {
+  document.getElementById('profilePopup').classList.add('active');
+});
+
+  // Timer and Stopwatch logic
+  let timerRunning = false;
+  let stopwatchRunning = false;
+  let timerInterval, stopwatchInterval;
+  let timeLeft = 60 * 60; // 1 hour countdown (3600 seconds)
+  let stopwatchTime = 0; // Stopwatch time in seconds
+  let lapTimes = []; // Store lap times
+
+  // Timer functionality (with pause and resume)
+  document.getElementById("submitCode").addEventListener("click", function() {
+      var code = document.getElementById("codeInput").value;
+
+      // Validate the entered code
+      if (code === "1234") {
+          startTimer();
+          enableBookingButton();
+      } else {
+          alert("Incorrect code! Please enter the correct code.");
+      }
+  });
+
+  function enableBookingButton() {
+      document.getElementById("acceptBooking").disabled = false;
+  }
+
+  function startTimer() {
+      if (!timerRunning) {
+          timerRunning = true;
+          timerInterval = setInterval(function() {
+              var minutes = Math.floor(timeLeft / 60);
+              var seconds = timeLeft % 60;
+              var timeString = minutes + "m " + seconds + "s ";
+              document.getElementById("timer").textContent = "Time remaining: " + timeString;
+
+              timeLeft--;
+
+              if (timeLeft < 0) {
+                  clearInterval(timerInterval);
+                  document.getElementById("timer").textContent = "Time's up! Session expired.";
+                  setTimeout(function() {
+                      window.location.href = "/"; // Redirect to homepage after session expires
+                  }, 2000);
+              }
+          }, 1000);
+
+          // Enable the pause and resume buttons
+          document.getElementById("pauseTimer").disabled = false;
+          document.getElementById("resumeTimer").disabled = true;
+      }
+  }
+
+  // Pause the timer
+  document.getElementById("pauseTimer").addEventListener("click", function() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      this.disabled = true;
+      document.getElementById("resumeTimer").disabled = false;
+  });
+
+  // Resume the timer
+  document.getElementById("resumeTimer").addEventListener("click", function() {
+      startTimer();
+      document.getElementById("pauseTimer").disabled = false;
+      this.disabled = true;
+  });
+
+  // Stop the timer manually
+  document.getElementById("acceptBooking").addEventListener("click", function() {
+      clearInterval(timerInterval);
+      document.getElementById("timer").textContent = "Timer Stopped.";
+      timerRunning = false;
+      this.disabled = true; // Disable after stopping
+  });
+
+  // Stopwatch functionality (with restart and lap)
+  document.getElementById("startStopwatch").addEventListener("click", function() {
+      if (!stopwatchRunning) {
+          stopwatchRunning = true;
+          this.disabled = true;
+          document.getElementById("stopStopwatch").disabled = false;
+          document.getElementById("restartStopwatch").disabled = false;
+          document.getElementById("lapStopwatch").disabled = false;
+          stopwatchInterval = setInterval(function() {
+              stopwatchTime++;
+              var minutes = Math.floor(stopwatchTime / 60);
+              var seconds = stopwatchTime % 60;
+              var timeString = minutes + "m " + seconds + "s ";
+              document.getElementById("stopwatchTimestamp").textContent = "Stopwatch Time: " + timeString;
+          }, 1000);
+      }
+  });
+
+  document.getElementById("stopStopwatch").addEventListener("click", function() {
+      clearInterval(stopwatchInterval);
+      document.getElementById("startStopwatch").disabled = false;
+      this.disabled = true;
+      stopwatchRunning = false;
+  });
+
+  document.getElementById("restartStopwatch").addEventListener("click", function() {
+      stopwatchTime = 0;
+      lapTimes = [];
+      document.getElementById("stopwatchTimestamp").textContent = "Stopwatch Time: 0m 0s";
+      document.getElementById("lapTimes").innerHTML = ""; // Clear lap times
+      document.getElementById("startStopwatch").disabled = false;
+      document.getElementById("restartStopwatch").disabled = true;
+      this.disabled = true;
+  });
+
+  document.getElementById("lapStopwatch").addEventListener("click", function() {
+      var minutes = Math.floor(stopwatchTime / 60);
+      var seconds = stopwatchTime % 60;
+      var timeString = minutes + "m " + seconds + "s";
+      lapTimes.push(timeString);
+      
+      var lapElement = document.createElement("div");
+      lapElement.textContent = "Lap " + lapTimes.length + ": " + timeString;
+      document.getElementById("lapTimes").appendChild(lapElement);
+  });
+</script>
+
+
+    <!-- Chatbot Toggle Button -->
+    <button id="chatbot-button">💬</button>
+
+    <!-- Chatbot Window -->
+    <div id="chatbot-window" class="chatbot-window"
+        style="display: none; position: fixed; bottom: 80px; right: 20px; width: 300px; background-color: white; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); padding: 10px;">
+        <div id="chatbot-header"
+            style="font-size: 18px; font-weight: bold; padding: 10px; background-color: #007bff; color: white; border-radius: 8px 8px 0 0;">
+            Maid Service Chatbot
+        </div>
+        <div id="chatbot-messages"
+            style="overflow-y: auto; max-height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">
+            <!-- Messages will be displayed here -->
+        </div>
+        <input id="chatbot-input" type="text" placeholder="Ask me anything..."
+            style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+        <button id="send-message" class="btn btn-primary"
+            style="width: 100%; border-radius: 8px; margin-top: 5px;">Send</button>
+    </div>
+    <script src="static/js/script.js"></script>
+    <script src="static/js/chatbot.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
